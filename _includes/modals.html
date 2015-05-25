@@ -58,14 +58,6 @@
 
                 if(event && event.target && event.target.dataset && event.target.dataset.dismiss){
                     $("#disqus_thread").remove();
-                    //Update comments
-                    DISQUS.reset({
-                        reload: true,
-                        config: function () {  
-                            this.page.identifier = event.target.dataset.post;  
-                            this.page.url = "http://melxx001.github.com/#!" + event.target.dataset.post;
-                        }
-                    });
                 }
             });
         });
