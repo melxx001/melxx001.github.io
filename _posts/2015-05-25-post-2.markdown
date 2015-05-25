@@ -1,0 +1,13 @@
+---
+layout: default
+modal-id: 2
+date: 2015-05-25
+img: keep-calm-and-validate-data.png
+alt: Keep calm and validate data
+project-date: May 2015
+sitename: React Forms
+theurl: https://github.com/melxx001/validation-attributes
+category: Web Development
+description: Coming Soon
+title: React Forms
+---
