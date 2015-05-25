@@ -19,7 +19,7 @@
                             </div>
                             <img src="img/portfolio/{{ post.img }}" class="img-responsive" alt="{{ post.alt }}">
                         </a>
-                        <center><a href="#portfolioModal-{{ post.modal-id }}" class="portfolio-link" data-toggle="modal" data-disqus-identifier="portfolioModal-{{ post.modal-id }}"></a></center>
+                        <center><a href="#portfolioModal-{{ post.modal-id }}" class="portfolio-link" data-post="portfolioModal-{{ post.modal-id }}" data-toggle="modal" data-disqus-identifier="portfolioModal-{{ post.modal-id }}"></a></center>
                     </div>
                 {% endfor %}
             </div>
