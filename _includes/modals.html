@@ -35,17 +35,17 @@
                     </div>
                 </div>
             </div>
-            <div data-id="disqusContainer"></div>
+            <div data-id="disqusContainer-portfolioModal-{{ post.modal-id }}"></div>
         </div>
     </div>
 {% endfor %}
     <script type="text/javascript">
     (function($){
         var _document = $(document);
-        var disqusContainer = $("[data-id='disqusContainer']");
         _document.ready(function(){
             _document.on('click.bs.modal.data-api',function(event){
                 if(event && event.target && event.target.dataset && event.target.dataset.post && DISQUS){
+                    var disqusContainer = $("[data-id='disqusContainer-" + event.target.dataset.post + "']");
                     disqusContainer.append('<div id="disqus_thread"></div>');
                     DISQUS.reset({
                         reload: true,
@@ -57,7 +57,7 @@
                 }
 
                 if(event && event.target && event.target.dataset && event.target.dataset.dismiss){
-                    disqusContainer.empty();
+                    $("#disqus_thread").remove();
                 }
             });
         });
