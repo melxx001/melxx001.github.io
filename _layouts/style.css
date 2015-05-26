@@ -1,4 +1,5 @@
 {% include css/bootstrap.min.css %}
 {% include css/main.css %}
-{% include css/github-gist.min.css %}
+{% include css/prism/prism-okaidia.min.css %}
+<!-- include css/highlight/github-gist.min.css -->
 <!-- http://cdnjs.cloudflare.com/ajax/libs/highlight.js/8.6/styles/vs.min.css -->
