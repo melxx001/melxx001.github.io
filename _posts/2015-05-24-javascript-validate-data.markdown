@@ -1,5 +1,5 @@
 ---
-layout: default
+layout: posts
 modal-id: 1
 date: 2015-05-24
 img: keep-calm-and-validate-data.png
@@ -11,4 +11,5 @@ url: https://github.com/melxx001/validation-attributes
 category: Development
 description: Coming Soon
 title: Form Validation
+tags : [javascript]
 ---

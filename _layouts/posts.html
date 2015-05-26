@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+    {% include head.html %}
+    <body id="page-top" class="index">
+        {% include nav.html %}
+        <section>
+            <div class="container">
+                <div class="row padding-top">
+                    {% if page.img != null %}
+                    <img src="/img/portfolio/{{ page.img }}" class="img-responsive" alt="{{ page.alt }}"
+                     />
+                    {% endif %}
+                    <h1 >{{ page.title }}</h1>
+                </div>
+                <div class="row">
+                    <div class="modal-post">
+                        {% capture myinclude %}{% include posts/posts-{{ page.modal-id }}.md %}{% endcapture %}
+                         {{ myinclude | markdownify }}
+                    </div>
+                </div>
+            </div>
+        </section>
+        <section>
+            <div class="container">
+                <div class="row">
+                    <div id="disqus_thread"></div>
+                </div>
+            </div>
+        </section>
+        {% include footer.html %}
+        {% include js.html %}
+        {% include google_analytics.html %}
+        <script>
+            var disqus_identifier = 'portfolioModal-{{ page.modal-id }}';
+        </script>
+        {% include disqus.html %}
+        {% include highlight.html %}
+    </body>
+</html>

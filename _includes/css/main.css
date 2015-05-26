@@ -455,3 +455,22 @@ footer .footer-below {
     color: ##2C3E50;
     text-decoration: none;
 }
+.padding-top {
+    padding-top: 15px;
+}
+.post-image {
+    height: 342px;
+    width: 293px;
+}
+.border-black{
+    border: black solid 1px;
+}
+.noimage{
+    background: black none repeat scroll 0 0;
+    color: white;
+    font-size: 40px;
+    font-weight: bold;
+    padding: 97px 10px 10px;
+    text-align: center;
+    text-decoration: none;
+}

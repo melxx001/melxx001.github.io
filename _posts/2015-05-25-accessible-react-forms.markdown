@@ -1,5 +1,5 @@
 ---
-layout: default
+layout: posts
 modal-id: 2
 date: 2015-05-25
 img: fill-my-react-form.png
@@ -10,4 +10,5 @@ theurl: https://github.com/melxx001/react-accessible-form
 category: Development
 description: Coming Soon
 title: Accessible React Forms
+tags : [react, react.js, forms]
 ---

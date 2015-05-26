@@ -9,23 +9,35 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                <a class="navbar-brand" href="#page-top">{{ site.title }}</a>
+                {% if page.layout == "default" %}
+                    {% assign top = "#page-top" %}
+                    {% assign pageurl = "" %}
+                    {% assign title = site.title %}
+                {% else %}
+                    {% assign top = "/" %}
+                    {% assign pageurl = "/" %}
+                    {% assign title = "Home" %}
+                {% endif %}
+                <a class="navbar-brand" href="{{ top }}">{{ title }}</a>
             </div>
 
             <!-- Collect the nav links, forms, and other content for toggling -->
             <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                 <ul class="nav navbar-nav navbar-right">
                     <li class="hidden">
-                        <a href="#page-top"></a>
+                        <a href="{{ top }}"></a>
                     </li>
                     <li class="page-scroll">
-                        <a href="#portfolio">Posts</a>
+                        <a href="{{ pageurl }}#portfolio">Latest Posts</a>
                     </li>
                     <li class="page-scroll">
-                        <a href="#about">About</a>
+                        <a href="/archives">Archives</a>
                     </li>
                     <li class="page-scroll">
-                        <a href="#contact">Contact</a>
+                        <a href="{{ pageurl }}#about">About</a>
+                    </li>
+                    <li class="page-scroll">
+                        <a href="{{ pageurl }}#contact">Contact</a>
                     </li>
                 </ul>
             </div>

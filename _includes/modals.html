@@ -14,26 +14,32 @@
                         <div class="modal-body">
                             <h2>{{ post.title }}</h2>
                             <hr class="star-primary">
+                             {% if post.img != null %}
                             <img src="img/portfolio/{{ post.img }}" class="img-responsive img-centered" alt="{{ post.alt }}">
-                            <p>{{ post.description }}</p>
+                             {% endif %}
                             <ul class="list-inline item-details">
                                 <li>Link:
-                                    <strong><a href="{{ post.theurl }}">{{ post.sitename }}</a></strong>
+                                    <strong><a target="_blank" href="{{ post.theurl }}">{{ post.sitename }}</a></strong>
                                 </li>
                                 <li>Category:
-                                    <!-- strong><a href="{{ post.categoryurl }}">{{ post.category }}</a></strong -->
+                                    <!-- strong><a target="_blank" href="{{ post.categoryurl }}">{{ post.category }}</a></strong -->
                                     <strong class="modal-desc">{{ post.category }}</strong>
                                 </li>
                                 <li>Date:
-                                    <!-- strong><a href="{{ post.projectdateurl }}">{{ post.project-date }}</a></strong -->
+                                    <!-- strong><a target="_blank" href="{{ post.projectdateurl }}">{{ post.project-date }}</a></strong -->
                                     <strong class="modal-desc">{{ post.project-date }}</strong>
+                                </li>
+                                <li>Description:
+                                    <strong class="modal-desc">{{ post.description }}</strong>
                                 </li>
                             </ul>
                             <div class="modal-post">
                                 {% capture myinclude %}{% include posts/posts-{{ post.modal-id }}.md %}{% endcapture %}
                                 {{ myinclude | markdownify }}
                             </div>
-                            <button type="button" class="btn btn-default" data-dismiss="modal"><i class="fa fa-times"></i> Close</button>
+                            <div class="padding-top">
+                                <button type="button" class="btn btn-default" data-dismiss="modal"><i class="fa fa-times"></i> Close</button>
+                            </div>
                         </div>
                     </div>
                 </div>
