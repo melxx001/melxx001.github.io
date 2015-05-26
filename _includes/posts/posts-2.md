@@ -68,7 +68,7 @@ React.render(<Component />, document.getElementById('component'));
 ~~~
 
 ### jsbin embed
-<a class="jsbin-embed" href="http://jsbin.com/pabome/4/embed?html,js,output">JS Bin</a><script src="http://static.jsbin.com/js/embed.js"></script>
+<a class="jsbin-embed" href="http://jsbin.com/pabome/4/embed?js,output">JS Bin</a><script src="http://static.jsbin.com/js/embed.js"></script>
 
 term
 : definition
