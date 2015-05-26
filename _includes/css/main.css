@@ -443,3 +443,15 @@ footer .footer-below {
     -ms-transform: rotate(90deg);
     transform: rotate(90deg);
 }
+
+/* CUSTOM */
+.modal-post {
+    text-align: left;
+}
+.modal-content {
+    padding: 15px !important;
+}
+.modal-desc {
+    color: ##2C3E50;
+    text-decoration: none;
+}
