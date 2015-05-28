@@ -1,7 +1,7 @@
 ---
 layout: posts
 post-id: 1
-showpost: true
+showpost: false
 comments: true
 showcommentcount: false
 date: 2015-05-24
