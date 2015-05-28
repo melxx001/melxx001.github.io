@@ -3,6 +3,7 @@ title: Hicham El Hammouchi
 email: hicham.elhammouchi@gmail.com
 url: https://melxx001.github.io
 description: "Thoughts, posts and code sample by Hicham El Hammouchi. Follow me on twitter @helhammo."
+version: 0.0.1
 
 # Contact form: comment the line below if you want to stick with the default PHP contact form
 contact: static
