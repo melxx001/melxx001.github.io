@@ -18,7 +18,7 @@ footer:
   copyright: Hicham El Hammouchi
   location: Location
   social: Around the Web
-  credits: Credits
+  quotes: Quotes
 
 # Social networks usernames (many more available: google-plus, flickr, dribbble, pinterest, instagram, tumblr, linkedin, etc.)
 social:
@@ -35,8 +35,9 @@ social:
 address:
   - line: 221B Baker Street
 
-# Credits content
-credits: 'This site&#39;s theme uses Freelancer... A free to use, open source Bootstrap theme created by <a href="http://startbootstrap.com">Start Bootstrap</a>.'
+# quotest content
+quotes: 'When you have eliminated all which is impossible, then whatever remains, however improbable, must be the truth'
+author: 'Sherlock Holmes'
 
 # Build settings
 markdown: kramdown

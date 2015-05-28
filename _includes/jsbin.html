@@ -1,8 +1,12 @@
 <script>
 (function($){
-	var jsbinEmbed = $(".jsbin-embed");
-	if(jsbinEmbed){
-		$("head").append('<scr' + 'ipt src="http://static.jsbin.com/js/embed.js"></scr' + 'ipt>');
-	}
+	$(document).ready(function(){
+		setTimeout(function(){
+			var jsbinEmbed = $(".jsbin-embed");
+			if(jsbinEmbed.length > 0){
+				$("head").append('<scr' + 'ipt async src="http://static.jsbin.com/js/embed.js"></scr' + 'ipt>');
+			}
+		}, 300);
+	});
 })(jQuery);
 </script>

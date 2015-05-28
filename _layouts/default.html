@@ -3,22 +3,19 @@
     {% include head.html %}
     <body id="page-top" class="index">
         {% include nav.html %}
-        {% include header.html %}
-        {% include portfolio.html %}
-        {% include about.html %}
-
-        {% if site.contact == "static" %}
-            {% include contact_static.html %}
-        {% else %}
-            {% include contact.html %}
-        {% endif %}
+        
+        {{ content }}
 
         {% include footer.html %}
-        {% include js.html %}
-        {% include modals.html %}
         {% include google_analytics.html %}
-        {% include disqus.html %}
-        {% include highlight.html %}
-        {% include jsbin.html %}
+
+        {% if page.comments == true %}
+            {% include disqus.html %}
+        {% endif %}
+
+        {% if page.jsbin == true %}
+            {% include jsbin.html %}
+        {% endif %}
+
     </body>
 </html>

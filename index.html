@@ -1,3 +1,19 @@
 ---
 layout: default
+entrypage: true
+comments: true
+showonlycommentcount: true
+showcommentcount: true
+jsbin: true
+turnModalsOn: false
 ---
+
+{% include header.html %}
+{% include portfolio.html %}
+{% include about.html %}
+
+{% if site.contact == "static" %}
+    {% include contact_static.html %}
+{% else %}
+    {% include contact.html %}
+{% endif %}

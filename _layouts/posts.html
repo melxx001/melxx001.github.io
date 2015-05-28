@@ -14,12 +14,12 @@
                 </div>
                 <div class="row">
                     <div class="modal-post">
-                        {% capture myinclude %}{% include posts/posts-{{ page.modal-id }}.md %}{% endcapture %}
-                         {{ myinclude | markdownify }}
+                         {{ content | markdownify }}
                     </div>
                 </div>
             </div>
         </section>
+        {% if page.comments != false %}
         <section>
             <div class="container">
                 <div class="row">
@@ -27,13 +27,17 @@
                 </div>
             </div>
         </section>
+        {% endif %}
         {% include footer.html %}
-        {% include js.html %}
         {% include google_analytics.html %}
-        <script>
-            var disqus_identifier = 'portfolioModal-{{ page.modal-id }}';
-        </script>
-        {% include disqus.html %}
+
+        {% if page.comments != false %}
+            <script>
+                var disqus_identifier = 'portfolioModal-{{ page.post-id }}';
+            </script>
+            {% include disqus.html %}
+        {% endif %}
+
         {% include highlight.html %}
         {% include jsbin.html %}
     </body>

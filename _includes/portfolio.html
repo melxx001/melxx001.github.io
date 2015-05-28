@@ -1,34 +1,46 @@
-
-    <!-- Portfolio Grid Section -->
-    <section id="portfolio">
-        <div class="container">
-            <div class="row">
-                <div class="col-lg-12 text-center">
-                    <h2>Latest Posts</h2>
-                    <hr class="star-primary">
-                </div>
-            </div>
-            <div class="row">
-                {% for post in site.posts %}
-                    <div class="col-sm-4 portfolio-item">
-                        <a href="#portfolioModal-{{ post.modal-id }}" class="portfolio-link post-image" data-toggle="modal">
-                            <div class="caption" data-post="portfolioModal-{{ post.modal-id }}">
-                                <div class="caption-content">
-                                    <i class="fa fa-search-plus fa-3x"></i>
-                                </div>
-                            </div> 
-                            {% if post.img != null %}
-                            <img src="img/portfolio/{{ post.img }}" class="img-responsive post-image" alt="{{ post.alt }}" />
-                            {% else %}
-                            <div class="noimage post-image border-black">{{ post.title }}</div>
-                            {% endif %}
-                        </a>
-                        <center><a href="#portfolioModal-{{ post.modal-id }}" class="portfolio-link" data-post="portfolioModal-{{ post.modal-id }}" data-toggle="modal" data-disqus-identifier="portfolioModal-{{ post.modal-id }}"></a></center>
-                    </div>
-                {% endfor %}
-            </div>
-            <div class="row">
-                <strong><h3><a href="/archives">Archives</a></h3></strong>
+<!-- Portfolio Grid Section -->
+<section id="portfolio">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12 text-center">
+                <h2>Latest Posts</h2>
+                <hr class="star-primary">
             </div>
         </div>
-    </section>
+        <div class="row">
+            {% for post in site.posts %}
+                {% if post.showpost == true %}
+                <div class="col-sm-4 portfolio-item">
+                    <a 
+                        class="portfolio-link post-image" 
+                        {% if page.turnModalsOn == true %}
+                        href="#portfolioModal-{{ post.post-id }}" 
+                        data-toggle="modal" 
+                        {% else %}
+                        href="{{ post.url }}" 
+                        {% endif %}
+                    >
+                        <div class="caption" data-post="portfolioModal-{{ post.post-id }}">
+                            <div class="caption-content">
+                                <i class="fa fa-search-plus fa-3x"></i>
+                            </div>
+                        </div> 
+                        {% if post.img != null %}
+                        <img src="img/portfolio/{{ post.img }}" class="img-responsive post-image" alt="{{ post.alt }}" />
+                        {% else %}
+                        <div class="noimage post-image border-black">{{ post.title }}</div>
+                        {% endif %}
+                    </a>
+                    <center><a href="#portfolioModal-{{ post.post-id }}" class="portfolio-link" data-post="portfolioModal-{{ post.post-id }}" data-toggle="modal" data-disqus-identifier="portfolioModal-{{ post.post-id }}"></a></center>
+                </div>
+                {% endif %}
+            {% endfor %}
+        </div>
+        <div class="row">
+            <strong><h3><a href="/archives">Archives</a></h3></strong>
+        </div>
+    </div>
+</section>
+{% if page.turnModalsOn == true %}
+{% include modals.html %}
+{% endif %}

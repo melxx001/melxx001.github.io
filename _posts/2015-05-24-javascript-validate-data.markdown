@@ -1,6 +1,9 @@
 ---
 layout: posts
-modal-id: 1
+post-id: 1
+showpost: true
+comments: true
+showcommentcount: false
 date: 2015-05-24
 img: keep-calm-and-validate-data.png
 alt: Keep calm and validate data
@@ -13,3 +16,15 @@ description: Coming Soon
 title: Form Validation
 tags : [javascript]
 ---
+
+## h2
+
+### h3
+
+#### h4
+
+```
+function test(){
+	return "test";
+}
+```

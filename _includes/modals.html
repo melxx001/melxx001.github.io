@@ -1,6 +1,6 @@
  <!-- Portfolio Modals -->
  {% for post in site.posts %}
-    <div class="portfolio-modal modal fade" id="portfolioModal-{{ post.modal-id }}" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="portfolio-modal modal fade" id="portfolioModal-{{ post.post-id }}" tabindex="-1" role="dialog" aria-hidden="true">
         <div class="modal-content">
             <div class="close-modal" data-dismiss="modal">
                 <div class="lr">
@@ -14,13 +14,15 @@
                         <div class="modal-body">
                             <h2>{{ post.title }}</h2>
                             <hr class="star-primary">
-                             {% if post.img != null %}
+                            {% if post.img != null %}
                             <img src="img/portfolio/{{ post.img }}" class="img-responsive img-centered" alt="{{ post.alt }}">
-                             {% endif %}
+                            {% endif %}
                             <ul class="list-inline item-details">
+                                {% if post.theurl != null %}
                                 <li>Link:
                                     <strong><a target="_blank" href="{{ post.theurl }}">{{ post.sitename }}</a></strong>
                                 </li>
+                                {% endif %}
                                 <li>Category:
                                     <!-- strong><a target="_blank" href="{{ post.categoryurl }}">{{ post.category }}</a></strong -->
                                     <strong class="modal-desc">{{ post.category }}</strong>
@@ -34,8 +36,7 @@
                                 </li>
                             </ul>
                             <div class="modal-post">
-                                {% capture myinclude %}{% include posts/posts-{{ post.modal-id }}.md %}{% endcapture %}
-                                {{ myinclude | markdownify }}
+                                {{ post.content | markdownify }}
                             </div>
                             <div class="padding-top">
                                 <button type="button" class="btn btn-default" data-dismiss="modal"><i class="fa fa-times"></i> Close</button>
@@ -44,10 +45,13 @@
                     </div>
                 </div>
             </div>
-            <div data-id="disqusContainer-portfolioModal-{{ post.modal-id }}"></div>
+            {% if post.comments != false %}
+            <div data-id="disqusContainer-portfolioModal-{{ post.post-id }}"></div>
+            {% endif %}
         </div>
     </div>
 {% endfor %}
+{% if page.comments == true %}
     <script type="text/javascript">
     (function($){
         var _document = $(document);
@@ -72,3 +76,4 @@
         });
     })(jQuery)
     </script>
+{% endif %}
