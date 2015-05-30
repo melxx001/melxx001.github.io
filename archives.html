@@ -8,7 +8,7 @@ title: Archives
         <div class="row">
             <h3>This year's posts</h3>
             {%for post in site.posts %}
-                {% if post.showpost == true %}
+                {% if post.published == true %}
                     {% unless post.next %}
                         <ul class="this">
                     {% else %}

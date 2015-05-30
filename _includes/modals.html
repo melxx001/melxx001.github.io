@@ -1,6 +1,6 @@
  <!-- Portfolio Modals -->
  {% for post in site.posts %}
-    <div class="portfolio-modal modal fade" id="portfolioModal-{{ post.post-id }}" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="portfolio-modal modal fade" id="portfolioModal-{{ post.postid }}" tabindex="-1" role="dialog" aria-hidden="true">
         <div class="modal-content">
             <div class="close-modal" data-dismiss="modal">
                 <div class="lr">
@@ -28,8 +28,8 @@
                                     <strong class="modal-desc">{{ post.category }}</strong>
                                 </li>
                                 <li>Date:
-                                    <!-- strong><a target="_blank" href="{{ post.projectdateurl }}">{{ post.project-date }}</a></strong -->
-                                    <strong class="modal-desc">{{ post.project-date }}</strong>
+                                    <!-- strong><a target="_blank" href="{{ post.projectdateurl }}">{{ post.projectdate }}</a></strong -->
+                                    <strong class="modal-desc">{{ post.projectdate }}</strong>
                                 </li>
                                 <li>Description:
                                     <strong class="modal-desc">{{ post.description }}</strong>
@@ -46,7 +46,7 @@
                 </div>
             </div>
             {% if post.comments != false %}
-            <div data-id="disqusContainer-portfolioModal-{{ post.post-id }}"></div>
+            <div data-id="disqusContainer-portfolioModal-{{ post.postid }}"></div>
             {% endif %}
         </div>
     </div>

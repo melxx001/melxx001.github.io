@@ -1,13 +1,13 @@
 ---
 layout: posts
-post-id: 3
-showpost: false
+postid: 3
+published: false
 showcomments: true
 showcommentcount: false
 date: 2015-06-01
 img: 
 alt: Learning React
-project-date: June 2015
+projectdate: June 2015
 sitename: Learning React
 theurl: 
 category: Development

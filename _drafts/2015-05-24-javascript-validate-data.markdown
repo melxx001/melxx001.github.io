@@ -1,13 +1,13 @@
 ---
 layout: posts
-post-id: 1
-showpost: false
+postid: 1
+published: false
 comments: true
 showcommentcount: false
 date: 2015-05-24
 img: keep-calm-and-validate-data.png
 alt: Keep calm and validate data
-project-date: May 2015
+projectdate: May 2015
 sitename: Form Validation
 theurl: https://github.com/melxx001/validation-attributes
 url: https://github.com/melxx001/validation-attributes
@@ -23,8 +23,8 @@ tags : [javascript]
 
 #### h4
 
-```
+~~~~
 function test(){
 	return "test";
 }
-```
+~~~
