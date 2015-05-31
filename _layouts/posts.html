@@ -13,8 +13,15 @@
                     <h1 >{{ page.title }}</h1>
                 </div>
                 <div class="row padding-top">
-                    <div class="modal-post">
+                    <div class="col-md-9 modal-post">
                          {{ content | markdownify }}
+                    </div>
+                    <div class="col-md-3">
+                        <div class="affix">
+                            <ul class="postpage-scroll" id="toc_sidebar" style="display: none;">
+                                <li><a href="#page-top">Back to top</a></li>
+                            </ul>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -40,5 +47,6 @@
 
         {% include highlight.html %}
         {% include jsbin.html %}
+        {% include jstocsidebar.html %}
     </body>
 </html>

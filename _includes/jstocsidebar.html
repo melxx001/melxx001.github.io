@@ -1,0 +1,10 @@
+<script type="text/javascript">
+(function($){
+	var toc = $("#markdown-toc").html();
+    var reg = /id="(.*)"/gi;
+    var html = toc.replace(reg, 'data-toc-id="$1"');
+    var sidebar = $("#toc_sidebar");
+    sidebar.append(html);
+    sidebar.show();
+})(jQuery)
+</script>

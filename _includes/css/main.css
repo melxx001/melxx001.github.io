@@ -199,6 +199,12 @@ section h4 {
     color: #0F8870;
 }
 
+section h5 {
+    margin: 0;
+    font-size: 20px;
+    padding-top: 20px;
+}
+
 section.success {
     color: #fff;
     background: #{{ site.color.primary }};

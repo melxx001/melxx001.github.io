@@ -16,30 +16,149 @@ title: Learning ES6
 tags : [ES6, ES2015, learning]
 ---
 
-## What is ES6?
-{:.no_toc}
-
- So I'm trying to use ES6 and keepup with the times. I need to get up to speed quickly so I google it and read many docs. I figure to write about it here and have one location where I can reference what i've learn and actual examples that I can play with.
+ So I'm trying to use ES6 and keep up with the times. I want to get up to speed quickly so I figure the best way to learn this is to reaseach and actually write about it. Also, I can have an area to quickly reference if I need to look something up. I love posts with code examples and that what I've tried to add here. Message me if you think I missed something or need to correct anything.
 
 
-### Requirements
-{:.no_toc}
-
-+ install babel
-+ ...
-+ ...
-
-### Features
-{:.no_toc}
+### Table of contents
 
 {:toc .postpage-scroll}
-+ Features
++ TOC
+
+### What is ES6?
+
+ECMAScript 6 is the upcoming version of the ECMAScript standard, This interesting [site](http://kangax.github.io/compat-table/es6/){:target="_blank"} shows ES6 compatibility with current browsers, compilers and servers. If you have time to kill, you can also see the draft [ES2015 standard](https://people.mozilla.org/~jorendorff/es6-draft.html){:target="_blank"} for full specification of the ECMAScript 6 language.
+
+There's a lot of cool stuff in ES6!
+
+### Setup
+
+I would suggest to try out the examples below using something like [jsbin](http://jsbin.com){:target="_blank"} or [codepen](http://codepen.io/pen/){:target="_blank"} with Babel set as the JavaScript preprocessor.
+
+#### Node.js
+
+Use the **--harmony** flag to be able to use ES6. And make sure you put **`"use strict"`** at the top of your file... otherwise, you'll get errors.
+
+~~~ javascript
+"use strict"
+let test = 10
+console.log(test)
+~~~
+
+~~~ bash
+$ node --harmony app.js     # Based on the code above, this command outputs 10 to the terminal
+~~~
+
+#### Browser 
+
+To use client-side, you're going to need something to understand the ES6 language. [Babel](https://babeljs.io){:target="_blank"} does a pretty good job. 
+
+> **IMPORTANT**: Compiling in the browser has a fairly limited use case, so if you are working on a production site, you should be **precompiling your scripts server-side**. See [setup build systems](http://babeljs.io/docs/setup/){:target="_blank"} for more information.
+
+I was going to demonstrate how to include babel directly in the browser but decided against it after seeing that the file I downloaded on May 31, 2015 is over 85000 lines and 2.9 MB!!!!! The minified version itself is huge at is 1.8MB!! 
+
+> Again... you should precompile and bundle your code server-side during the build prior to serving it to your client. 
+
+The example below uses [Gulp](http://gulpjs.com/){:target="_blank"} and requires the node modules gulp and gulp-babel to be installed prior.
+
+##### Example Directory structure
+
+~~~~ bash
+|-- dist
+  |-- app.js
+|-- node_modules
+  |-- gulp
+  |-- gulp-babel
+|-- src
+  |-- app.js
+|-- gulpfile.js
+|-- package.json
+~~~~
+
+##### gulpfile.js
+
+~~~ javascript
+var gulp = require("gulp")
+var babel = require("gulp-babel")
+
+gulp.task("default", function () {
+  return gulp.src("src/app.js")
+    .pipe(babel())
+    .pipe(gulp.dest("dist"))
+})
+~~~
+
+This will take the file app.js in the src directory, transform it using babel to a format current browsers will understand and put it in the dist folder.
+
+##### app.js in src folder
+
+~~~ javascript
+'use strict'
+
+let firstName = 'Bob'
+let lastname = 'Smith'
+let person = {
+  firstName,
+  lastname
+}
+
+let obj1 = (a, b) => ({foo: a + b})
+
+let animal = 'lion'
+let obj2 = {
+  [ animal ]: 'name'
+}
+~~~
+
+This file contains code with ES6 syntax.
+
+##### Run it!
+
+~~~ bash
+$ gulp
+[05:08:52] Using gulpfile ~/test/gulpfile.js
+[05:08:52] Starting 'default'...
+[05:08:52] Finished 'default' after 126 ms
+~~~
+
+Run gulp to transform app.js in src directory using babel
+
+##### Resulting app.js in dist folder
+
+~~~ javascript
+'use strict';
+
+function _defineProperty(obj, key, value) { return Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); }
+
+var firstNname = 'Bob';
+var lastname = 'Smith';
+var person = {
+  firstNname: firstNname,
+  lastname: lastname
+};
+
+var obj1 = function obj1(a, b) {
+  return { foo: a + b };
+};
+
+var animal = 'lion';
+var obj2 = _defineProperty({}, animal, 'name');
+~~~
+
+As you can see, it's been transformed to syntax that the current browsers will understand. You can now include this file on your page.
+
+See [Gulp](http://gulpjs.com/){:target="_blank"} and [gulp-babel](https://babeljs.io/docs/setup/#gulp){:target="_blank"} for more information.
+
+### Features
 
 #### Let and const
 
-`
-WRITE IN MY OWN WORDS: Block-scoped binding constructs. let is the new var. const is single-assignment. Static restrictions prevent use before assignment.
-`
+> The keywords `let` and `const` create new variables scoped to the nearest block of code that is denoted by curly braces `{` and `}`. 
+
+> There is no hoisting because of the **temporal dead zone**. `This is the region of a program, where a variable or a parameter cannot be accessed until it’s initialized`. If you want to read more about this, check out [Temporal Dead Zone (TDZ) demystified](http://jsrocks.org/2015/01/temporal-dead-zone-tdz-demystified/){:target="_blank"}
+
+> `const` is single-assignment. 
+
+> Static restrictions prevent use before assignment.
 
 ~~~ javascript
 num = '10';
@@ -47,7 +166,8 @@ let num;
 
 console.log( num );   // undefined
 ~~~
-There is no hoisting for let and const because of the **temporal dead zone**. <-- WHAT IS THIS?
+
+Since there is no hoisting for let, the example above, num is undefined.
 
 ~~~ javascript
 if ( true ) {
@@ -56,7 +176,8 @@ if ( true ) {
 
 console.log( num );   // ReferenceError: num is not defined     
 ~~~
-The keywords `let` and `const` create new variables scoped to the nearest block of code that is denoted by curly braces `{` and `}`. There is no identifier `num` outside that block scope, therefore calling unknown identifier throws an error.
+
+In the above example, there is no identifier `num` outside that block scope, therefore calling an unknown identifier throws an error.
 
 ~~~ javascript
 const animals = [ 'dog' ];
@@ -64,34 +185,59 @@ animals.push( 'cat' );
 
 console.log( animals );   // [ "dog", "cat" ]
 ~~~
-The keyword `const` creates constant reference, not a constant value. The pointer that the variable name is using cannot change in memory, but the thing the variable points to might change.
+
+The keyword `const` creates a constant reference, not a constant value. You can push or remove new values into the animals array above. But you will not be able to re-assign the variable.
+
+~~~ javascript
+const animals = [ 'dog' ];
+animals.push( 'cat' );
+animals.push( 'elephant' );
+
+animals = [ 'lion' ];     // error because const is single-assignment
+console.log( animals );
+~~~
+
+Nothing is displayed in the above example since it errors out because const is single-assignment.
 
 [More let information](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/let){:target="_blank"} --
 [More const information](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/const){:target="_blank"}.
 
 #### Default parameters
 
-I really like this feature as it will make intializing arguments much easier. 
+I really like this feature because it makes initializing arguments much easier.
 
 ~~~ javascript
-function display( test = 'initial value' ){
-  return test; 
+function display( test1 = 'first', test2 = 'second' ){   // Super cool
+  return test1 + ' -- ' + test2; 
 }
 
-console.log(display());               // "initial value"
-console.log(display('new value'));    // "new value"
+console.log( display() );               // "first -- second"
+console.log( display( '1', '2') );      // "1 -- 2"
 ~~~
 
-You can give function arguments initial values without having to do a check inside the function.
+Gone are the days where I have to continously check if a parameter has a value and set a default. You can give function arguments initial values in it's definition. 
 
+The ES5 version would look like this:
 
-#### Template strings
+~~~ javascript
+function display( test1, test2 ) {
+  var test1 = ( test1 === undefined ) ? 'first' : test1;    // Less cool
+  var test2 = ( test2 === undefined ) ? 'second' : test2;
+
+  return test1 + ' -- ' + test2;
+}
+
+console.log(display());             // "first -- second"
+console.log(display('1', '2'));     // "1 -- 2"
+~~~
+
+#### Template strings -- CONTINUE HERE
 
 `
 WRITE IN MY OWN WORDS: Template strings provide syntactic sugar for constructing strings. This is similar to string interpolation features in Perl, Python and more. Optionally, a tag can be added to allow the string construction to be customized, avoiding injection attacks or constructing higher level data structures from string contents.
 `
 
-You have to put tildes around the expression. Ex: ` `expression` `
+You have to put tildes around expressions. Ex: `` `expression` ``
 
 ~~~ javascript
 let one = 7, two = 1, three = 1;
@@ -132,15 +278,15 @@ WRITE IN MY OWN WORDS: Object literals are extended to support setting the proto
 `
 
 ~~~ javascript
-let firstNname = 'Bob';
-let lastname = 'Smith';
+let firstName = 'Bob';
+let lastName = 'Smith';
 
 let person = {
-  firstNname,
-  lastname
+  firstName,
+  lastName
 };
 
-console.log( person );   // { firstName: "Bob", lastname: "Smith" }
+console.log( person );   // { firstName: "Bob", lastName: "Smith" }
 
 /* ---------------- */
 
