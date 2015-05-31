@@ -15,6 +15,16 @@ $(function() {
     });
 });
 
+$(function() {
+    $('.postpage-scroll a').bind('click', function(event) {
+        var $anchor = $(this);
+        $('html, body').stop().animate({
+            scrollTop: $($anchor.attr('href')).offset().top - 80
+        }, 1500, 'easeInOutExpo');
+        event.preventDefault();
+    });
+});
+
 // Floating label headings for the contact form
 $(function() {
     $("body").on("input propertychange", ".floating-label-form-group", function(e) {

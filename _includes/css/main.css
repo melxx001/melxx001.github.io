@@ -9,7 +9,7 @@ body {
 }
 
 p {
-    font-size: 20px;
+    font-size: 16px;
 }
 
 p.small {
@@ -174,9 +174,29 @@ section {
     padding: 100px 0;
 }
 
+section h1 {
+    margin: 0;
+    font-size: 70px;
+    color: #cb3837;
+}
+
 section h2 {
     margin: 0;
-    font-size: 3em;
+    font-size: 50px;
+    padding-top: 20px;
+}
+
+section h3 {
+    margin: 0;
+    font-size: 35px;
+    padding-top: 20px;
+}
+
+section h4 {
+    margin: 0;
+    font-size: 25px;
+    padding-top: 20px;
+    color: #0F8870;
 }
 
 section.success {
@@ -473,4 +493,7 @@ footer .footer-below {
     padding: 97px 10px 10px;
     text-align: center;
     text-decoration: none;
+}
+.margin-1{
+    margin-left: -1px;
 }
