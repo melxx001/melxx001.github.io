@@ -16,7 +16,9 @@ title: Learning ES6
 tags : [ES6, ES2015, learning]
 ---
 
- So I'm trying to use ES6 and keep up with the times. I want to get up to speed quickly so I figure the best way to learn this is to reaseach and actually write about it. Also, I can have an area to quickly reference if I need to look something up. I love posts with code examples and that what I've tried to add here. Message me if you think I missed something or need to correct anything.
+ So I'm trying to use ES6 and keep up with the times. I want to get up to speed quickly so I figure the best way to learn this is to research and write about it. Also, I can have an area to quickly reference if I need to look something up. 
+
+ I love posts with code examples and that what I've tried to add here. Message me or comment below if I've missed something or need to correct anything.
 
 
 ### Table of contents
@@ -36,6 +38,8 @@ I would suggest to try out the examples below using something like [jsbin](http:
 
 #### Node.js
 
+If you don't know node.js, you're missing out. See the [node.js site](https://nodejs.org/){:target="_blank"} for more information. It's suepr easy to setup.
+
 Use the **--harmony** flag to be able to use ES6. And make sure you put **`"use strict"`** at the top of your file... otherwise, you'll get errors.
 
 ~~~ javascript
@@ -50,15 +54,15 @@ $ node --harmony app.js     # Based on the code above, this command outputs 10 t
 
 #### Browser 
 
-To use client-side, you're going to need something to understand the ES6 language. [Babel](https://babeljs.io){:target="_blank"} does a pretty good job. 
+To use client-side, you're going to need something that understands the ES6 language. [Babel](https://babeljs.io){:target="_blank"} does a pretty good job. 
 
 > **IMPORTANT**: Compiling in the browser has a fairly limited use case, so if you are working on a production site, you should be **precompiling your scripts server-side**. See [setup build systems](http://babeljs.io/docs/setup/){:target="_blank"} for more information.
 
-I was going to demonstrate how to include babel directly in the browser but decided against it after seeing that the file I downloaded on May 31, 2015 is over 85000 lines and 2.9 MB!!!!! The minified version itself is huge at is 1.8MB!! 
+I was going to demonstrate how to include babel directly in the browser but decided against it after seeing that the file I downloaded at the time of writing this is over 85000 lines and 2.9 MB!!!!! The minified version itself is huge at is 1.8MB!! 
 
-> Again... you should precompile and bundle your code server-side during the build prior to serving it to your client. 
+> Again... Precompile and bundle your code server-side during the build prior to serving it to your client. 
 
-The example below uses [Gulp](http://gulpjs.com/){:target="_blank"} and requires the node modules gulp and gulp-babel to be installed prior.
+So that you don't spend your time figuring out what to do, I put together a very small example of transforming code using `gulp-babel` and `gulp`. This requires the [node](https://nodejs.org/){:target="_blank"} modules [gulp](http://gulpjs.com/){:target="_blank"} and [gulp-babel](https://www.npmjs.com/package/gulp-babel){:target="_blank"} to be installed prior.
 
 ##### Example Directory structure
 
@@ -120,7 +124,7 @@ $ gulp
 [05:08:52] Finished 'default' after 126 ms
 ~~~
 
-Run gulp to transform app.js in src directory using babel
+Run `gulp` in a terminal to transform app.js in src directory using babel.
 
 ##### Resulting app.js in dist folder
 
@@ -154,7 +158,7 @@ See [Gulp](http://gulpjs.com/){:target="_blank"} and [gulp-babel](https://babelj
 
 > The keywords `let` and `const` create new variables scoped to the nearest block of code that is denoted by curly braces `{` and `}`. 
 
-> There is no hoisting because of the **temporal dead zone**. `This is the region of a program, where a variable or a parameter cannot be accessed until it’s initialized`. If you want to read more about this, check out [Temporal Dead Zone (TDZ) demystified](http://jsrocks.org/2015/01/temporal-dead-zone-tdz-demystified/){:target="_blank"}
+> There is no hoisting because of the **temporal dead zone**. `This is the region of a program, where a variable or a parameter cannot be accessed until it’s initialized`. If you want to read more about this, check out [Temporal Dead Zone (TDZ) demystified](http://jsrocks.org/2015/01/temporal-dead-zone-tdz-demystified/){:target="_blank"}.
 
 > `const` is single-assignment. 
 
@@ -167,7 +171,7 @@ let num;
 console.log( num );   // undefined
 ~~~
 
-Since there is no hoisting for let, the example above, num is undefined.
+Since there is no hoisting for let. In the example above, num is undefined.
 
 ~~~ javascript
 if ( true ) {
@@ -186,7 +190,7 @@ animals.push( 'cat' );
 console.log( animals );   // [ "dog", "cat" ]
 ~~~
 
-The keyword `const` creates a constant reference, not a constant value. You can push or remove new values into the animals array above. But you will not be able to re-assign the variable.
+The keyword `const` creates a constant reference, not a constant value. You can push or remove values into the animals array above. But you will not be able to re-assign the variable.
 
 ~~~ javascript
 const animals = [ 'dog' ];
@@ -197,7 +201,7 @@ animals = [ 'lion' ];     // error because const is single-assignment
 console.log( animals );
 ~~~
 
-Nothing is displayed in the above example since it errors out because const is single-assignment.
+Nothing is displayed in the above example since it errors out because const only allows single-assignment.
 
 [More let information](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/let){:target="_blank"} --
 [More const information](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/const){:target="_blank"}.
