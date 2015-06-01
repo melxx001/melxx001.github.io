@@ -1,8 +1,8 @@
 ---
 layout: posts
 postid: 2
-published: false
-comments: true
+published: true
+comments: false
 showcommentcount: false
 date: 2015-05-25
 img: fill-my-react-form.png
@@ -17,6 +17,9 @@ tags : [react, react.js, forms]
 ---
 
 ## Markdown Test
+
+{:toc .postpage-scroll}
++ TOC
 
 ## h2
 

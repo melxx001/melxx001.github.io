@@ -1,8 +1,8 @@
 ---
 layout: posts
 postid: 1
-published: false
-comments: true
+published: true
+comments: false
 showcommentcount: false
 date: 2015-05-24
 img: keep-calm-and-validate-data.png

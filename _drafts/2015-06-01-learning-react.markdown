@@ -1,8 +1,8 @@
 ---
 layout: posts
 postid: 3
-published: false
-showcomments: true
+published: true
+comments: false
 showcommentcount: false
 date: 2015-06-01
 img: 

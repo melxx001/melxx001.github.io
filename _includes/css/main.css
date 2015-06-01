@@ -494,7 +494,7 @@ footer .footer-below {
 .noimage{
     background: black none repeat scroll 0 0;
     color: white;
-    font-size: 50px;
+    font-size: 25px;
     font-weight: bold;
     padding: 97px 10px 10px;
     text-align: center;
@@ -502,4 +502,7 @@ footer .footer-below {
 }
 .margin-1{
     margin-left: -1px;
+}
+.affix{
+    top: 130px;
 }
