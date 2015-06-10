@@ -21,22 +21,22 @@ tags : [ES6, ES2015, learning]
  I love posts with code examples and that what I've tried to add here. Message me or comment below if I've missed something or need to correct anything.
 
 
-### Table of contents
+## Table of contents
 
 {:toc .postpage-scroll}
 + TOC
 
-### What is ES6?
+## What is ES6?
 
 ECMAScript 6 is the upcoming version of the ECMAScript standard, This interesting [site](http://kangax.github.io/compat-table/es6/){:target="_blank"} shows ES6 compatibility with current browsers, compilers and servers. If you have time to kill, you can also see the draft [ES2015 standard](https://people.mozilla.org/~jorendorff/es6-draft.html){:target="_blank"} for full specification of the ECMAScript 6 language.
 
 There's a lot of cool stuff in ES6!
 
-### Setup
+## Setup
 
 I would suggest to try out the examples below using something like [jsbin](http://jsbin.com){:target="_blank"} or [codepen](http://codepen.io/pen/){:target="_blank"} with Babel set as the JavaScript preprocessor.
 
-#### Node.js
+### Node.js
 
 If you don't know node.js, you're missing out. See the [node.js site](https://nodejs.org/){:target="_blank"} for more information. It's suepr easy to setup.
 
@@ -52,7 +52,7 @@ console.log(test)
 $ node --harmony app.js     # Based on the code above, this command outputs 10 to the terminal
 ~~~
 
-#### Browser 
+### Browser 
 
 To use client-side, you're going to need something that understands the ES6 language. [Babel](https://babeljs.io){:target="_blank"} does a pretty good job. 
 
@@ -64,7 +64,7 @@ I was going to demonstrate how to include babel directly in the browser but deci
 
 So that you don't spend your time figuring out what to do, I put together a very small example of transforming code using `gulp-babel` and `gulp`. This requires the [node](https://nodejs.org/){:target="_blank"} modules [gulp](http://gulpjs.com/){:target="_blank"} and [gulp-babel](https://www.npmjs.com/package/gulp-babel){:target="_blank"} to be installed prior.
 
-##### Example Directory structure
+#### Example Directory structure
 
 ~~~~ bash
 |-- dist
@@ -78,7 +78,7 @@ So that you don't spend your time figuring out what to do, I put together a very
 |-- package.json
 ~~~~
 
-##### gulpfile.js
+#### gulpfile.js
 
 ~~~ javascript
 var gulp = require("gulp")
@@ -93,7 +93,7 @@ gulp.task("default", function () {
 
 This will take the file app.js in the src directory, transform it using babel to a format current browsers will understand and put it in the dist folder.
 
-##### app.js in src folder
+#### app.js in src folder
 
 ~~~ javascript
 'use strict'
@@ -115,7 +115,7 @@ let obj2 = {
 
 This file contains code with ES6 syntax.
 
-##### Run it!
+#### Run it!
 
 ~~~ bash
 $ gulp
@@ -126,7 +126,7 @@ $ gulp
 
 Run `gulp` in a terminal to transform app.js in src directory using babel.
 
-##### Resulting app.js in dist folder
+#### Resulting app.js in dist folder
 
 ~~~ javascript
 'use strict';
@@ -152,9 +152,9 @@ As you can see, it's been transformed to syntax that the current browsers will u
 
 See [Gulp](http://gulpjs.com/){:target="_blank"} and [gulp-babel](https://babeljs.io/docs/setup/#gulp){:target="_blank"} for more information.
 
-### Features
+## Features
 
-#### Let and const
+### Let and const
 
 > The keywords `let` and `const` create new variables scoped to the nearest block of code that is denoted by curly braces `{` and `}`. 
 
@@ -206,7 +206,7 @@ Nothing is displayed in the above example since it errors out because const only
 [More let information](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/let){:target="_blank"} --
 [More const information](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/const){:target="_blank"}.
 
-#### Default parameters
+### Default parameters
 
 I really like this feature because it makes initializing arguments much easier.
 
@@ -235,7 +235,7 @@ console.log(display());             // "first -- second"
 console.log(display('1', '2'));     // "1 -- 2"
 ~~~
 
-#### Template strings -- CONTINUE HERE
+### Template strings -- CONTINUE HERE
 
 `
 WRITE IN MY OWN WORDS: Template strings provide syntactic sugar for constructing strings. This is similar to string interpolation features in Perl, Python and more. Optionally, a tag can be added to allow the string construction to be customized, avoiding injection attacks or constructing higher level data structures from string contents.
@@ -275,7 +275,7 @@ This is pretty cool!!
 
 [More template strings information](https://developer.mozilla.org/en/docs/Web/JavaScript/Reference/template_strings){:target="_blank"}.
 
-#### Object literal
+### Object literal
 
 `
 WRITE IN MY OWN WORDS: Object literals are extended to support setting the prototype at construction, shorthand for foo: foo assignments, defining methods, making super calls, and computing property names with expressions.
@@ -365,7 +365,7 @@ arr.map( function ( { title, author } ) {
 
 [More object literal information](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Object_initializer){:target="_blank"}.
 
-#### Arrows
+### Arrows
 
 Arrows are anonymous functions that are written with a shorter syntax and bind the `this` value.
 
