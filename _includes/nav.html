@@ -12,13 +12,11 @@
                 {% if page.entrypage == true %}
                     {% assign top = "#page-top" %}
                     {% assign pageurl = "" %}
-                    {% assign title = site.title %}
                 {% else %}
                     {% assign top = "/" %}
                     {% assign pageurl = "/" %}
-                    {% assign title = "Home" %}
                 {% endif %}
-                <a class="navbar-brand" href="{{ top }}">{{ title }}</a>
+                <a class="navbar-brand" href="{{ top }}">Home</a>
             </div>
 
             <!-- Collect the nav links, forms, and other content for toggling -->

@@ -9,7 +9,7 @@ body {
 }
 
 p {
-    font-size: 16px;
+    font-size: 18px;
 }
 
 p.small {
@@ -176,19 +176,19 @@ section {
 
 section h1 {
     margin: 0;
-    font-size: 70px;
+    font-size: 50px;
     color: #cb3837;
 }
 
 section h2 {
     margin: 0;
-    font-size: 50px;
+    font-size: 35px;
     padding-top: 20px;
 }
 
 section h3 {
     margin: 0;
-    font-size: 35px;
+    font-size: 30px;
     padding-top: 20px;
 }
 
@@ -505,4 +505,8 @@ footer .footer-below {
 }
 .affix{
     top: 130px;
+}
+.important {
+    font-size: 17px;
+    color: red;
 }
