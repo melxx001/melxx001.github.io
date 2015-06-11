@@ -349,7 +349,7 @@ form .row:first-child .floating-label-form-group {
 footer {
     color: #fff;
     position: relative;
-    z-index: 100000;
+    z-index: 1000;
 }
 
 footer h3 {
