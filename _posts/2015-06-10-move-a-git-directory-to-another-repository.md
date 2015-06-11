@@ -40,9 +40,9 @@ If you have a better solution, let me know!
 
 ## Let's do this!
 
-#### Set up your working directory
+### Set up your working directory
 
-##### Clone repos
+#### Clone repos
 
 Set up a separate area and clone both the original repository `Orig` -- which contains the files you want to copy -- and the target repository `Dest`. This way, you can delete and restart if something goes wrong. **Don't push changes unless you're really sure**.
 
@@ -53,7 +53,7 @@ $ git clone Orig.git
 $ git clone Dest.git
 ~~~
 
-##### Result
+#### Result
 ~~~ bash
 |-- TestFolder
 	|-- Orig
@@ -68,9 +68,9 @@ $ git clone Dest.git
 ~~~
 
 
-#### Move everything into a directory
+### Move everything into a directory
 
-##### Create a new folder
+#### Create a new folder
 
 Create a new folder -- in this example, I named it `temp` -- inside the repo `Orig` and move everything except the `.git` folder into it. Make sure that the folder name you choose doesn't exist in the root of the repo `Dest` to avoid issues and conflicts.
 
@@ -81,7 +81,7 @@ $ mv !(temp) temp
 $ mv .gitignore temp 	# Manually move files that are remaining
 ~~~
 
-##### Result
+#### Result
 ~~~ bash
 |-- TestFolder
 	|-- Orig
@@ -96,7 +96,7 @@ $ mv .gitignore temp 	# Manually move files that are remaining
 		|-- File
 ~~~
 
-#### Prepare the code
+### Prepare the code
 
 Commit the code but <span class="important">**DO NOT PUSH!!!**</span> You don't want to modify the origin.
 
@@ -105,7 +105,7 @@ $ git add -A .		# The next line doesn't commit if this line is not there
 $ git commit -a -m "Moved all data into temp folder"
 ~~~
 
-#### Add a remote branch
+### Add a remote branch
 
 Go to `Dest` and add `temp` as a remote branch.
 
@@ -115,7 +115,7 @@ $ git remote add temp /TestFolder/Orig
 $ git fetch temp
 ~~~
 
-#### Merge the branch
+### Merge the branch
 
 Merge the remote branch into `Dest`. 
 
@@ -123,7 +123,7 @@ Merge the remote branch into `Dest`.
 $ git merge -m "Merging into repo Dest" temp/master
 ~~~
 
-#### Remove the temp branch
+### Remove the temp branch
 
 Remove the `temp` remote branch from `Repo Dest`. 
 
@@ -131,7 +131,7 @@ Remove the `temp` remote branch from `Repo Dest`.
 $ git remote rm temp
 ~~~
 
-#### Check results
+### Check results
 
 You should now have the folder `temp` in the root of `Repo Target`
 
@@ -155,7 +155,7 @@ You should now have the folder `temp` in the root of `Repo Target`
 
 And... if you look at the git logs, you'll see that the history is there. Yay!
 
-#### Move to new location
+### Move to new location
 
 Now, you can move the contents of `temp` anywhere in `Dest`. You're done! Commit and push!
 

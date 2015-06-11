@@ -188,21 +188,16 @@ section h2 {
 
 section h3 {
     margin: 0;
-    font-size: 30px;
-    padding-top: 20px;
-}
-
-section h4 {
-    margin: 0;
     font-size: 25px;
     padding-top: 20px;
     color: #0F8870;
 }
 
-section h5 {
+section h4 {
     margin: 0;
     font-size: 20px;
     padding-top: 20px;
+    color: black;
 }
 
 section.success {
@@ -353,6 +348,8 @@ form .row:first-child .floating-label-form-group {
 
 footer {
     color: #fff;
+    position: relative;
+    z-index: 100000;
 }
 
 footer h3 {
@@ -514,3 +511,4 @@ footer .footer-below {
 @media all and (max-width: 990px) {
     .post-sidebar{display:none;}
 }
+
