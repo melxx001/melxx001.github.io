@@ -42,7 +42,7 @@ If you decide to use ES6 as part of your project, you're going to need to includ
 
 If you don't know Node.js, you're missing out. See the [Node.js site](https://nodejs.org/){:target="_blank"} for more information. It's super easy to setup.
 
-Use the **--harmony** flag to be able to use ES6. And make sure you put **`"use strict"`** at the top of your file... otherwise, you'll get errors.
+Use the `--harmony` flag to be able to use ES6. And make sure you put `"use strict"` at the top of your file... otherwise, you'll get errors.
 
 ~~~ javascript
 "use strict"
@@ -56,9 +56,9 @@ $ node --harmony app.js     # Based on the code above, this command outputs 10 t
 
 ### Client-side 
 
-You're going to need something to help browsers to understands the ES6 language. [Babel](https://babeljs.io){:target="_blank"} does a pretty good job. 
+You're going to need something to help browsers understand the ES6 language. [Babel](https://babeljs.io){:target="_blank"} does a pretty good job. 
 
-> **IMPORTANT**: Compiling in the browser has a fairly limited use case, so if you are working on a production site, you should**precompiling your scripts server-side**. See [setup build systems](http://babeljs.io/docs/setup/){:target="_blank"} for more information.
+> **IMPORTANT**: Compiling in the browser has a fairly limited use case, so if you are working on a production site, you should **precompile your scripts server-side**. See [setup build systems](http://babeljs.io/docs/setup/){:target="_blank"} for more information.
 
 I was going to demonstrate how to include babel directly in the browser but decided against it after seeing that the file I downloaded at the time of this writing is over 85000 lines and 2.9 MB!!!!! The minified version itself is huge at 1.8MB!! 
 
@@ -66,7 +66,7 @@ I was going to demonstrate how to include babel directly in the browser but deci
 
 ### Compiling ES6 code to ES5 
 
-So that you don't spend your time figuring out what to do, I put together a very small example of transforming code using `gulp` and `gulp-babel`. This requires the [node](https://nodejs.org/){:target="_blank"} modules [gulp](http://gulpjs.com/){:target="_blank"} and [gulp-babel](https://www.npmjs.com/package/gulp-babel){:target="_blank"} to already be installed.
+To save you some time, I put together a very small example of transforming code using `gulp` and `gulp-babel`. This requires the [node](https://nodejs.org/){:target="_blank"} modules [gulp](http://gulpjs.com/){:target="_blank"} and [gulp-babel](https://www.npmjs.com/package/gulp-babel){:target="_blank"}.
 
 #### Starting Directory structure
 
@@ -454,9 +454,8 @@ let obj = ( a, b ) => ( { foo: a + b } );
 console.log( obj( 1, 2 ) );              // { foo: 3 }
 ~~~
 
-### destructuring
++ destructuring
 http://www.2ality.com/2014/06/es6-multiple-return-values.html
-
 + default + rest + spread
 + iterators + for..of
 + generators
@@ -473,3 +472,4 @@ http://www.2ality.com/2014/06/es6-multiple-return-values.html
 + reflect api
 + tail calls
 + classes
+{: .hidden}

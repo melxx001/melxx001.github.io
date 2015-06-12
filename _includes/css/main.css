@@ -521,6 +521,10 @@ footer .footer-below {
     color: red;
 }
 
+.hidden{
+    display:none;
+}
+
 @media all and (max-width: 990px) {
     .post-sidebar{display:none;}
 }
