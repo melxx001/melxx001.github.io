@@ -471,23 +471,33 @@ footer .footer-below {
 .modal-post {
     text-align: left;
 }
+
 .modal-content {
     padding: 15px !important;
 }
+
 .modal-desc {
     color: ##2C3E50;
     text-decoration: none;
 }
+
 .padding-top {
     padding-top: 15px;
 }
+
+.padding-bottom {
+    padding-bottom: 15px;
+}
+
 .post-image {
     height: 342px;
     width: 293px;
 }
+
 .border-black{
     border: black solid 1px;
 }
+
 .noimage{
     background: #2C3E50 none repeat scroll 0 0;
     color: white;
@@ -497,12 +507,15 @@ footer .footer-below {
     text-align: center;
     text-decoration: none;
 }
+
 .margin-1{
     margin-left: -1px;
 }
+
 .affix{
     top: 130px;
 }
+
 .important {
     font-size: 17px;
     color: red;
@@ -511,4 +524,3 @@ footer .footer-below {
 @media all and (max-width: 990px) {
     .post-sidebar{display:none;}
 }
-
