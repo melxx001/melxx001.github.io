@@ -218,6 +218,27 @@ animals = [ 'lion' ];     // error because const is single-assignment
 
 [More const information](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/const){:target="_blank"}.
 
+### Spread Operator
+
+A cool feature is the spread operator. It simplifies things where multiple arguments need to be used.
+
+~~~ javascript
+let animals = [ 'cat', 'dog' ];
+let moreAnimals = [ 'elephant', ...animals, 'lion' ];
+
+console.log( moreAnimals );  // ["elephant", "cat", "dog", "lion"]
+~~~
+
+~~~ javascript
+function name( first , last){
+  return first + ' ' + last;
+}
+
+let user = [ 'Bob', 'Smith' ];
+
+console.log( name( ...user ) );  // "Bob Smith"
+~~~
+
 ### Default parameters
 
 I really like this feature because it makes initializing arguments much easier. Gone are the days where I have to continuously check if a parameter has a value and set a default. You can give function arguments initial values in it's definition. 
@@ -456,7 +477,102 @@ console.log( obj( 1, 2 ) );              // { foo: 3 }
 
 [More arrows information](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Functions/Arrow_functions){:target="_blank"}.
 
-+ destructuring
+
+### Destructuring
+
+This is another feature that's really neat. It's super simple and enables you to read a whole structure in one line!! I'm itching at opportunities to include this stuff in my future code.
+
+#### Object destructuring
+
+Let's create variables from an existing object.
+{: .padding-top}
+
+~~~ javascript
+let obj = { first: 'Bob', last: 'Smith', age: 22 };
+let { first, age } = obj;    // Variable names must match the properties of the object
+
+console.log( first );   // "Bob"
+console.log( age );     // 22
+~~~
+
+> It's important to note that variable names **must match** the property names of the object. If you do something like `let { firstname, age } = obj;` in the above example, `firstname` would be `undefined`.
+>
+> You don't need to use all the properties in the object. Notice that I didn't use the `last` property of `obj`. 
+
+We can easily use our own variable names. Let's take the above example and change it to use different variables names.
+{: .padding-top}
+
+~~~ javascript
+let obj = { first: 'Bob', last: 'Smith', age: 22 };
+let { first: firstName , age: userAge } = obj;
+
+console.log( firstName );   // "Bob"
+console.log( userAge );     // 22
+~~~
+
+~~~ javascript
+function user( { first: firstName , last: lastName } ){
+  return firstName + ' ' + lastName;
+}
+
+console.log( user( { first: 'Bob', last: 'Smith' } ) ); // "Bob Smith"
+~~~
+
+Destructuring assignment can be made without a declaration in the assignment statement. The statement must be wrapped in parentheses.
+{: .padding-top}
+
+~~~ javascript
+let name, age;
+( { name, age } = { name: "Bob" , age: 22 } ); // You need to wrap this statement in parentheses
+
+console.log( name );   // "Bob"
+console.log( age );    // 22
+~~~
+
+#### Array destructuring
+
+Let's create variables from an existing array.
+{: .padding-top}
+
+~~~ javascript
+let arr = ['Bob', 'Smith', 22 ];
+let [ first, last, age ] = arr;
+
+console.log( first );   // "Bob"
+console.log( age );     // 22
+~~~
+
+The amount of elements in the destructured statement must match the original array to correctly capture the data you want. In the example below, you'll notice `let [ first, , age, , telephone ] = arr;` which looks like we're missing variables but it's not the case. We've purposefully ignored some values.
+{: .padding-top}
+
+~~~ javascript
+let arr = ['Bob', 'Smith', 22 , '1234 Main St', '555-555-5555'];
+let [ first, , age, , telephone ] = arr;  // Purposefully only included 3 variables
+
+console.log( first );     // "Bob"
+console.log( age );       // 22
+console.log( telephone ); // 555-555-5555
+~~~
+
+Another cool feature is swapping variables without using temporary variables.
+{: .padding-top}
+
+~~~ javascript
+let name1 = 'Bob';
+let name2 = 'Jack';
+
+console.log( name1 );   // "Bob"
+console.log( name2 );   // "Jack"
+
+[ name1, name2 ] = [ name2 , name1 ]    // Awesome!
+
+console.log( name1 );   // "Jack"
+console.log( name2 );   // "Bob"
+~~~
+
+[More destructuring information](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Destructuring_assignment){:target="_blank"}.
+
+
 http://www.2ality.com/2014/06/es6-multiple-return-values.html
 + default + rest + spread
 + iterators + for..of
