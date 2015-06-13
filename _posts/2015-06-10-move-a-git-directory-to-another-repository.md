@@ -5,7 +5,7 @@ tags: [git, learning, development]
 published: true
 category: Development
 description: Move a git directory to another repository
-img: dont-be-a-git-use-version-control.png
+img: move-git-directory.png
 sitename: Git Directory Move
 showcommentcount: true
 comments: true
