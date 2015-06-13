@@ -454,6 +454,8 @@ let obj = ( a, b ) => ( { foo: a + b } );
 console.log( obj( 1, 2 ) );              // { foo: 3 }
 ~~~
 
+[More arrows information](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Functions/Arrow_functions){:target="_blank"}.
+
 + destructuring
 http://www.2ality.com/2014/06/es6-multiple-return-values.html
 + default + rest + spread
