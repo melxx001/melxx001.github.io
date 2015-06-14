@@ -568,13 +568,15 @@ console.log( name2 );   // "Jack"
 
 console.log( name1 );   // "Jack"
 console.log( name2 );   // "Bob"
+
+[ name1, name2 ] = [ name1 + ' Smith' , name1 + ' ' + name2 ]    // Awesome!
+
+console.log( name1 );   // "Jack Smith"
+console.log( name2 );   // "Jack Bob"
 ~~~
 
 [More destructuring information](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Destructuring_assignment){:target="_blank"}.
 
-
-http://www.2ality.com/2014/06/es6-multiple-return-values.html
-+ default + rest + spread
 + iterators + for..of
 + generators
 + unicode
