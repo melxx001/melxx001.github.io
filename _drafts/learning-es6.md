@@ -34,7 +34,7 @@ There's a lot of cool stuff in ES6!
 
 ## Setup
 
-I would suggest to try out the examples below using something like [jsbin](http://jsbin.com){:target="_blank"} or [codepen](http://codepen.io/pen/){:target="_blank"} with Babel set as the JavaScript preprocessor.
+I would suggest to try out the examples below in Chrome since it seems that most features are available using something like [jsbin](http://jsbin.com){:target="_blank"} or [codepen](http://codepen.io/pen/){:target="_blank"} with Babel set as the JavaScript preprocessor.
 
 If you decide to use ES6 as part of your project, you're going to need to include a few things
 
@@ -195,7 +195,8 @@ if ( true ) {
 console.log( num );   // ReferenceError: num is not defined since it's outside the block scope
 ~~~
 
-[More let information](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/let){:target="_blank"}
+[More let information](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/let){:target="_blank"}.
+{: .padding-top}
 
 #### const
 
@@ -217,6 +218,7 @@ animals = [ 'lion' ];     // error because const is single-assignment
 ~~~
 
 [More const information](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/const){:target="_blank"}.
+{: .padding-top}
 
 ### Spread Operator
 
@@ -311,9 +313,9 @@ console.log( message );     // ReferenceError: firstName is not defined
 ~~~
 
 The substitution `${firstName}` is replaced by the value of variable `firstName`, which in this case is `undefined`.
-{: .padding-bottom}
 
 [More template strings information](https://developer.mozilla.org/en/docs/Web/JavaScript/Reference/template_strings){:target="_blank"}.
+{: .padding-top}
 
 ### Object initializer (or literal)
 
@@ -406,6 +408,7 @@ arr.map( function ( { title, author } ) {
 ~~~
 
 [More object literal information](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Object_initializer){:target="_blank"}.
+{: .padding-top}
 
 ### Arrows
 
@@ -476,7 +479,7 @@ console.log( obj( 1, 2 ) );              // { foo: 3 }
 ~~~
 
 [More arrows information](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Functions/Arrow_functions){:target="_blank"}.
-
+{: .padding-top}
 
 ### Destructuring
 
@@ -576,15 +579,247 @@ console.log( name2 );   // "Jack Bob"
 ~~~
 
 [More destructuring information](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Destructuring_assignment){:target="_blank"}.
+{: .padding-top}
 
-+ iterators + for..of
-+ generators
+### Symbols
+
+A symbol is a unique and immutable data type. I don't believe I'll be making lot of use of this but it can be used as unique ids.
+{: .padding-top}
+
+~~~ javascript
+let str = 'this is a symbol';
+let symbol1  = Symbol(str);
+let symbol2  = Symbol(str);
+
+console.log( typeof symbol1 );       // "symbol"
+console.log( symbol1 == symbol2 );   // false because symbols are unique
+console.log( symbol1 === symbol2 );  // false because symbols are unique
+~~~
+
+Let's look at a few examples:
+{: .padding-top}
+
+~~~ javascript
+const username = Symbol();
+
+let user = {
+    name: "Bob Smith",
+    [ username ]: "bob",  // This property is a symbol
+    username: "new-bob"   // This property is a string
+};
+
+console.log( user );             // { name: "Bob Smith", username: "new-bob", Symbol(): "bob" }
+console.log( user[ username ] ); // "bob"
+console.log( user.username );    // "new-bob"
+~~~
+
+~~~ javascript
+const username = Symbol();
+
+let user = {
+    name: "Bob Smith",
+    [ username ]: "bob"
+};
+
+user[ username ] = "changed-bob";
+
+console.log( user );              // { name: "Bob Smith", Symbol(): "changed-bob" }
+console.log( user[ username ] );  // "changed-bob"
+~~~
+
+Interestingly, if you change the value of initial symbol used, you loose the reference to it. That's because symbols are unique.
+{: .padding-top}
+
+~~~ javascript
+let username = Symbol();
+
+let user = {
+    name: "Bob Smith",
+    [ username ]: "bob"
+};
+
+username = Symbol();  // This symbol is different from the first declaration
+
+console.log( user[ username ] );  // undefined
+~~~
+
+Another thing I noticed is that you will not get symbols when you iterate through the object's properties.
+{: .padding-top}
+
+~~~ javascript
+const username = Symbol();
+
+let user = {
+    firstName: "Bob",
+    lastName: "Smith",
+    age: 22,
+    [ username ]: "bob"
+};
+
+console.log( Object.getOwnPropertyNames( user ) );  // ["firstName", "lastName", "age"] 
+~~~
+
+To get the object's symbols, you can use Object.getOwnPropertySymbols which will return an array of symbols
+{: .padding-top}
+
+~~~ javascript
+const username = Symbol();
+
+let user = {
+    name: "Bob Smith",
+    [ username ]: "bob"
+};
+
+console.log( Object.getOwnPropertySymbols( user ) );              // [ Symbol() ]
+console.log( user[ Object.getOwnPropertySymbols( user )[0] ] );   // "bob"  
+~~~
+
+[More symbols information](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Symbol){:target="_blank"}.
+{: .padding-top}
+
+### Iterators
+
+#### Iterators
+{: .padding-bottom}
+
+##### Definitions
+
+> An Iterable is an object that returns an iterator. It has a `[Symbol.iterator]()` method inside.
+
+> An iterator is simply an object with a `next()` method that returns an object with property `value` containing the current value and the property `done` which shows whether we're done iterating.
+
+~~~ javascript
+let arr = [ 1 , 2 ];
+let iterator = arr[Symbol.iterator]();
+
+console.log(iterator.next());   // { done: false, value: 1 }
+console.log(iterator.next());   // { done: false, value: 2 }
+console.log(iterator.next());   // { done: true, value: undefined }
+~~~
+
+[More Iterators information](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Iteration_protocols){:target="_blank"}.
+{: .padding-top}
+
+##### for-of
+{: .padding-top}
+
+The `for-of` loop iterates over iterable object such as arrays, maps, sets, argument objects etc.
+
+~~~ javascript
+let arr = [ 1 , 2 ];
+
+for( let a of arr ){
+  console.log( a );     // 1 , 2
+}
+~~~
+
+The `for-of` loop differs from the `for-in` loop which iterated over names.
+{: .padding-top}
+
+~~~ javascript
+let arr = [ 1 , 2 ];
+arr.extraNumber = 10
+
+for( let a in arr ){
+  console.log( a );     // "0" , "1", "extraNumber"
+}
+~~~
+
+[More for-of information](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/for...of){:target="_blank"}.
+{: .padding-top}
+
+### Generators
+
+Generators are useful for creating custom iterators and doing asynchronous JavaScript. 
+
+##### Definitions
+{: .padding-top}
+
+> The `function*` defines a generator function and returns a generator object. It's a function, that can be paused many times, and resumed later, allowing other code to run during these paused periods.
+> [More function* information](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/function*){:target="_blank"}.
+
+> A generator is a special type of iterator. It provided a `throw()` method and it's `next()` method accepts a parameter. 
+> [More generator information](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Generator){:target="_blank"}.
+
+> The yield keyword is used to pause and resume a generator function. 
+> [More yield information](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/yield){:target="_blank"}.
+
+> The yield* expression is used to delegate to another generator or iterable object. 
+> [More yield* information](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/yield*){:target="_blank"}.
+
+##### Examples
+{: .padding-top}
+
+> **Important**: At the time of this writing, I couldn't get the generator examples below to work in jsbin using the Babel preprocessor. 
+> 
+> I had to switch it to JavaScript and used the Chrome browser. You could paste these example in the Chrome console too.
+
+In the example below, the generator function is resumed only when we call the `next()` method.
+
+~~~ javascript
+var shield = function* (){
+  yield 'Thor';
+  yield 'Iron Man';
+  yield 'Captain America';
+  yield 'Hulk';
+}
+
+var avengers = shield();
+
+console.log( avengers.next() );   // { value: "Thor", done: false }
+console.log( avengers.next() );   // { value: "Iron Man", done: false }
+console.log( avengers.next() );   // { value: "Captain America", done: false }
+console.log( avengers.next() );   // { value: "Hulk", done: false }
+console.log( avengers.next() );   // { value: undefined, done: true }
+~~~
+
+~~~ javascript
+function* groceries (grocery){
+  for( var item of grocery.split( ' ' ) ){
+    yield item;
+  }
+}
+
+var list = groceries( 'cabbage meat oranges turkey yogurt' );
+
+for ( var word of list ){
+  console.log( word );    // "cabbage"
+}                         // "meat"
+                          // "oranges"
+                          // "turkey"
+                          // "yogurt"
+~~~
+
+~~~ javascript
+function* marvel(){
+  yield 'Captain America';
+  yield 'Iron Man';
+  yield* hydra();     // This will bring the values from the hydra generator function
+}
+
+function* hydra(){
+  yield 'Red Skull';
+  yield 'Arnim Zola';
+}
+
+
+var characters = marvel();
+
+console.log( characters.next() );   // { value: "Captain America", done: false }
+console.log( characters.next() );   // { value: "Iron Man", done: false }
+console.log( characters.next() );   // { value: "Red Skull", done: false }
+console.log( characters.next() );   // { value: "Arnim Zola", done: false }
+console.log( characters.next() );   // { value: undefined, done: true }
+~~~
+
+[More iterators and Generators information](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Iterators_and_Generators){:target="_blank"}.
+{: .padding-top}
+
 + unicode
 + modules
 + module loaders
 + map + set + weakmap + weakset
 + proxies
-+ symbols
 + subclassable built-ins
 + promises
 + math + number + string + array + object APIs
