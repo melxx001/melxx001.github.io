@@ -913,15 +913,15 @@ for ( let card of cards ){
 
 #### WeakSet
 
++ promises
++ classes
 + unicode
 + modules
 + module loaders
 + proxies
 + subclassable built-ins
-+ promises
 + math + number + string + array + object APIs
 + binary and octal literals
 + reflect api
 + tail calls
-+ classes
 {: .hidden}

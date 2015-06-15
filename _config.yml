@@ -43,3 +43,5 @@ author: 'Sherlock Holmes'
 # Build settings
 markdown: kramdown
 permalink: pretty
+kramdown:
+  toc_levels: '2,3'
