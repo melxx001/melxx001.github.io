@@ -814,13 +814,104 @@ console.log( characters.next() );   // { value: undefined, done: true }
 [More iterators and Generators information](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Iterators_and_Generators){:target="_blank"}.
 {: .padding-top}
 
-### Set
+### Collections
 
-### Map
+#### Set
 
-### WeakMap
+The `Set` object lets you store unique values of any type.
+{: .padding-top}
 
-### WeakSet
+~~~ javascript
+let cards = new Set();
+
+cards.add( 10 );
+cards.add( 'jack' );
+cards.add( 'queen' );
+cards.add( 'king' );
+cards.add( [ 6, 7, 8, 9 ] );
+cards.add( { four: 4 } );
+
+
+console.log( cards );               // { 10, "jack", "queen", "king", [6, 7, 8, 9], { four: 4 } }
+console.log( cards.size );          // 6
+console.log( cards.has('ace') );    // false
+console.log( cards.has(10) );       // true
+console.log( cards.has('king') );   // true
+~~~
+
+Use the `delete()` method to remove an item from the `Set`
+{: .padding-top}
+
+~~~ javascript
+let cards = new Set();
+
+cards.add( 10 );
+cards.add( 'jack' );
+cards.add( 'queen' );
+cards.add( 'king' );
+
+console.log( cards );               // { 10, "jack", "queen", "king" }
+console.log( cards.size );          // 4
+
+cards.delete( 10 );
+
+console.log( cards );               // { "jack", "queen", "king" }
+console.log( cards.size );          // 3
+~~~
+
+There are no duplicates in a `Set` since each entry is unique
+{: .padding-top}
+
+~~~ javascript
+let cards = new Set( [ 10, 10, 'jack', 'king' ] );
+
+cards.add( 10 );
+cards.add( 10 );
+cards.add( 'jack' );
+cards.add( 'jack' );
+cards.add( 'queen' );
+cards.add( 'queen' );
+cards.add( 'king' );
+cards.add( 'king' );
+
+console.log( cards );               // { 10, "jack", "queen", "king" }
+console.log( cards.size );          // 4
+~~~
+
+Use the `clear()` method to empty the `Set`
+{: .padding-top}
+
+~~~ javascript
+let cards = new Set( [ 10, 'jack', 'queen', 'king' ] );
+
+console.log( cards );               // { 10, "jack", "queen", "king" }
+console.log( cards.size );          // 4
+
+cards.clear();
+
+console.log( cards );               // { }
+console.log( cards.size );          // 0
+~~~
+
+You can use the `for-of` loop to iterate over the `Set`
+{: .padding-top}
+
+~~~ javascript
+let cards = new Set( [ 10, 'jack' ] );
+
+for ( let card of cards ){
+  console.log( card );  // 10
+}                       // "jack"
+~~~
+
+[More set information](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Set){:target="_blank"}.
+{: .padding-top}
+
+#### Map
+
+#### WeakMap
+
+#### WeakSet
 
 + unicode
 + modules
