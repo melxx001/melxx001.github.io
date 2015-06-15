@@ -802,7 +802,6 @@ function* hydra(){
   yield 'Arnim Zola';
 }
 
-
 var characters = marvel();
 
 console.log( characters.next() );   // { value: "Captain America", done: false }
@@ -815,10 +814,17 @@ console.log( characters.next() );   // { value: undefined, done: true }
 [More iterators and Generators information](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Iterators_and_Generators){:target="_blank"}.
 {: .padding-top}
 
+### Set
+
+### Map
+
+### WeakMap
+
+### WeakSet
+
 + unicode
 + modules
 + module loaders
-+ map + set + weakmap + weakset
 + proxies
 + subclassable built-ins
 + promises
