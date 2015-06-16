@@ -1,6 +1,8 @@
 # Purpose
 
-This is my personal site where I will blog about interest and add things about what I've learnt.
+This is my personal site where I will blog about interests and things about what I've learnt.
+
+Currently, these will mostly include React.js, Node.js and ES6.
 
 ## Theme 
 
