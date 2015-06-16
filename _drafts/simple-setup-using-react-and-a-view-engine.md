@@ -19,6 +19,7 @@ postid:
 ---
 
 app.js
+
 ~~~~ javascript
 'use strict'
 var express = require('express')
@@ -50,6 +51,7 @@ debug("Server is listening")
 ~~~~
 
 index.jsx
+
 ~~~~ jsx
 var React = require('react');
 var DefaultLayout = require('./layout');
@@ -68,6 +70,7 @@ module.exports = HelloMessage;
 ~~~~
 
 layout.jsx
+
 ~~~~ jsx
 var React = require('react');
 
@@ -89,6 +92,7 @@ module.exports = DefaultLayout;
 ~~~~
 
 package.json
+
 ~~~~ bash
 {
   "name": "react-accessible-form",
