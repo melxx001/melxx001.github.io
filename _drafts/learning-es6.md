@@ -992,10 +992,41 @@ for( let card of cards.keys() ){
 [More map information](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Map){:target="_blank"}.
 {: .padding-top}
 
+#### WeakSet
+
+Differently from a `Set`, `Weakset` only stores objects and not arbitrary values. Also, `WeakSet` is not enumerable.
+{: .padding-top}
+
+~~~ javascript
+let cards = new WeakSet();
+let arr = [ 6, 7, 8, 9 ];
+let obj = { four: 4 };
+
+cards.add( arr );
+cards.add( obj );
+
+console.log( cards );               // { [6, 7, 8, 9], { four: 4 } }
+console.log( cards.has(arr) );      // true
+console.log( cards.has(obj) );      // true
+~~~
+
+~~~ javascript
+let cards = new WeakSet( [ 6, 7, 8, 9 ], { four: 4 } );
+let arr = [ 6, 7, 8, 9 ];
+
+cards.delete(arr);
+
+console.log( cards );               // { { four: 4 } }
+~~~
+
+[More weakset information](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/WeakSet){:target="_blank"}.
+{: .padding-top}
 
 #### WeakMap
 
-#### WeakSet
+[More weakmap information](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/WeakMap){:target="_blank"}.
+{: .padding-top}
+
 
 + promises
 + classes
