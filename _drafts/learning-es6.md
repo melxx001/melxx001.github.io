@@ -818,7 +818,10 @@ console.log( characters.next() );   // { value: undefined, done: true }
 
 #### Set
 
-The `Set` object lets you store unique values of any type.
+The `Set` object lets you store unique values of any type. 
+{: .padding-top}
+
+The `has` method checks if an item exists or not. The property `size` returns the size of the `Set`.
 {: .padding-top}
 
 ~~~ javascript
@@ -908,6 +911,87 @@ for ( let card of cards ){
 {: .padding-top}
 
 #### Map
+
+The `Map` object is a simple key/value map. Any value can be used as either a key or a value.
+{: .padding-top}
+
+The `has` method checks if an item exists or not. The `get` returns the value of a key.
+{: .padding-top}
+
+~~~ javascript
+let cards = new Map();
+
+cards.set( 10, 'ten' );
+cards.set( 11, 'jack' );
+cards.set( 12, 'queen' );
+cards.set( 13, 'king' );
+
+console.log( cards );               // { 10 => "ten", 11 => "jack", 12 => "queen", 13 => "king" }
+console.log( cards.size );          // 4
+console.log( cards.has('ace') );    // false
+console.log( cards.has('king') );   // false
+console.log( cards.get(10) );       // "ten"
+console.log( cards.get(13) );       // "king"
+~~~
+
+Use the `delete()` method to remove an item from the `Map`
+{: .padding-top}
+
+~~~ javascript
+let cards = new Map([ [ 10, 'ten' ], [ 11, 'jack' ], [ 12, 'queen' ], [ 13, 'king' ] ]);
+
+console.log( cards );               // { 10 => "ten", 11 => "jack", 12 => "queen", 13 => "king" }
+console.log( cards.size );          // 4
+
+cards.delete( 13 );
+
+console.log( cards );               // { 10 => "ten", 11 => "jack", 12 => "queen" }
+console.log( cards.size );          // 3
+~~~
+
+Use the `clear()` method to empty the `Map`
+{: .padding-top}
+
+~~~ javascript
+let cards = new Map([ [ 10, 'ten' ], [ 11, 'jack' ], [ 12, 'queen' ], [ 13, 'king' ] ]);
+
+console.log( cards );               // { 10 => "ten", 11 => "jack", 12 => "queen", 13 => "king" }
+console.log( cards.size );          // 4
+
+cards.clear();
+
+console.log( cards );               // { }
+console.log( cards.size );          // 0
+~~~
+
+The `values()` method return an iterator of `Map` values. The `keys()` method return an iterator of `Map` keys. Let's use the `for-of` loop to iterate over the `Map`. 
+{: .padding-top}
+
+~~~ javascript
+let cards = new Map([ [ 10, 'ten' ], [ 11, 'jack' ], [ 12, 'queen' ], [ 13, 'king' ] ]);
+
+for( let card of cards ){
+  console.log( card );    // [ 10, "ten" ]
+}                         // [ 11, "jack" ]
+                          // [ 12, "queen" ]
+                          // [ 13, "king" ]
+
+for( let card of cards.values() ){
+  console.log( card );    // "ten"
+}                         // "jack"
+                          // "queen"
+                          // "king"
+
+for( let card of cards.keys() ){
+  console.log( card );    // 10
+}                         // 11
+                          // 12
+                          // 13
+~~~
+
+[More map information](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Map){:target="_blank"}.
+{: .padding-top}
+
 
 #### WeakMap
 
