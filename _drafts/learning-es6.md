@@ -994,7 +994,9 @@ for( let card of cards.keys() ){
 
 #### WeakSet
 
-Differently from a `Set`, `Weakset` only stores objects and not arbitrary values. Also, `WeakSet` is not enumerable.
+Differently from a `Set`, `Weakset` only stores objects and not arbitrary values. Also, `WeakSet` is not enumerable. 
+
+Other than information purpose, I don't see a big use of this. It doesn't provide any methods or functions to manipulate its contents. From what I read, the only benefit is that `Set` can cause more garbage in memory than 'WeakSet' since references to objects in the collection are held "weakly". If there is no other reference to an object stored in the WeakSet, it can be garbage collected.
 {: .padding-top}
 
 ~~~ javascript
@@ -1010,13 +1012,15 @@ console.log( cards.has(arr) );      // true
 console.log( cards.has(obj) );      // true
 ~~~
 
+I would've thought in the example below that `arr` would be found in `cards` and the array removed. But for the `delete` and `has` to work as I thought, I would have to add `arr` via `card.add( arr )`.
+{: .padding-top}
 ~~~ javascript
-let cards = new WeakSet( [ 6, 7, 8, 9 ], { four: 4 } );
+let cards = new WeakSet( [ [ 6, 7, 8, 9 ], { four: 4 } ] );
 let arr = [ 6, 7, 8, 9 ];
 
+console.log( cards.has(arr) );      // false
 cards.delete(arr);
-
-console.log( cards );               // { { four: 4 } }
+console.log( cards );               // { [ 6, 7, 8, 9 ], { four: 4 } }
 ~~~
 
 [More weakset information](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/WeakSet){:target="_blank"}.
