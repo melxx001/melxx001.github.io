@@ -1028,6 +1028,39 @@ console.log( cards );               // { [ 6, 7, 8, 9 ], { four: 4 } }
 
 #### WeakMap
 
+Like `WeakSet`, I don't see a big use for `WeakMap` in anything I'm doing. It only allows object keys, doesn't have a size method and cannot be iterated over.
+{: .padding-top}
+
+~~~ javascript
+let cards = new WeakMap();
+let jack = { amount: 11 };
+let queen = { amount: 12 };
+
+cards.set( jack, 'jack' );
+cards.set( queen, 'queen' );
+
+console.log( cards );               // { {amount: 11} => "jack", {amount: 12} => "queen" }
+console.log( cards.has(jack) );     // true
+console.log( cards.get(jack) );     // "jack"
+console.log( cards.get(queen) );    // "queen"
+~~~
+
+Interestingly, `cards.has({ amount: 11 })` in the example below returns `false`.
+{: .padding-top}
+
+~~~ javascript
+let cards = new WeakMap();
+let jack = { amount: 11 };
+
+cards.set( jack, 'jack' );
+
+console.log( cards );                         // { { amount: 11 } => "jack" }
+console.log( cards.has(jack) );               // true
+console.log( cards.has({ amount: 11 }) );     // false
+console.log( cards.delete({ amount: 11 }) );  // Doesn't find { amount: 11 } to delete
+~~~
+
+
 [More weakmap information](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/WeakMap){:target="_blank"}.
 {: .padding-top}
 
