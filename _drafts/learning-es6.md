@@ -170,7 +170,7 @@ var obj2 = _defineProperty({}, animal, 'name');
 
 ## Features
 
-This is **not** a complete list of features. Some of things I didn't mention and even the feature themselves might not have every scenario.
+This is **not** a complete list of features. The features themselves will not have every scenario but I think a good amount to understand what's going on.
 
 ### Let and const
 
@@ -1065,15 +1065,205 @@ console.log( cards.delete({ amount: 11 }) );  // Doesn't find { amount: 11 } to 
 {: .padding-top}
 
 
+### Proxy
+
+The `Proxy` object is used to define custom behavior for fundamental operations (e.g. property lookup, assignment, enumeration, function invocation, etc). You can intercept calls made to regular objects and it is designed to work "transparently". 
+
+> At the time of this writing, only Firefox has support for this. So if you're testing this out in jsbin, try the next set of examples in Firefox.
+
+> The proxy syntax is `var proxy = new Proxy(target , handler)`. `target` can be an object, array, function or another proxy. `handler` is an object containing methods to alter the behavior of an operation.
+
+#### Operations
+
+Below is a list of operations that can be intercepted.
+
+
+> Operation  ||| Handler
+------------- ||| -------------
+proxy[name]  ||| handler.get(proxy, name)
+proxy[name] = val  ||| handler.set(proxy, name, val)
+name in proxy  ||| handler.has(name)
+delete proxy[name]  ||| handler.delete(name)
+for (var name in proxy) {...}  ||| handler.iterate()
+Object.keys(proxy)  ||| handler.keys()
+
+#### Methods that can be intercepted
+
+Below are methods that can be intercepted by the `Proxy`.
+
++ get
++ set
++ keys
++ enumerate
++ apply
++ has
++ construct
++ getOwnPropertyNames
++ defineProperty
++ deleteProperty
++ getOwnPropertyDescriptor
++ freeze
++ seal
++ preventExtensions
++ isFrozen
++ isExtensible
++ isSealed
++ hasOwn
++ getPrototypeOf
+
+#### Examples
+
+Let's intercept the `get` operation of an object.
+{: .padding-top}
+
+~~~ javascript
+let handler = {
+  get: function( target, key ){
+
+    // if the property doesn't exist, this will return "Random Object"
+    // instead of undefined
+    if( !target[ key ] ){
+      target[ key ] = 'Random Object';
+    }               
+
+    return target[ key ]; 
+  }
+};
+
+let target = {
+  protection: 'shield',
+  weapon: 'sword'
+};
+
+let items = new Proxy( target, handler );
+
+console.log( items.weapon );      // "sword"
+console.log( items.protection );  // "shield"
+console.log( items.hammer );      // "Random Object"
+console.log( items.armor );       // "Random Object"
+~~~
+
+Let's intercept the `set` operation of an object.
+{: .padding-top}
+
+~~~ javascript
+let handler = {
+  set: function( obj, prop, value ){
+
+    // Set to uppercase when the property is "category"
+    if( prop === 'category' ){
+      value = value.toUpperCase();
+    }
+
+    // Check if the value of the property "amount"
+    // is a number and less than 500. Otherwise, display some warnings
+    if( prop === 'amount' ){
+      let val = parseFloat( value );
+      if( isNaN( val ) ){
+        console.warn( value + ' is not a number.' );
+        val = 0;
+      }
+
+      if (val > 500) {
+        console.warn( 'Limit of $500.00 exceeded.' );
+      }
+
+      value = '$' + val.toFixed(2);
+    }
+
+    obj[ prop ] = value;
+  }
+};
+
+let expense = new Proxy( {}, handler );
+
+expense.category = 'groceries';
+expense.amount = '340';
+
+console.log( expense );   // { amount: "$340.00", category: "GROCERIES" }
+
+expense.amount = 'zzz';   // "zzz is not a number."
+expense.amount = '540';   // "Limit of $500.00 exceeded."
+~~~
+
+Let's proxy an array.
+{: .padding-top}
+
+~~~ javascript
+let cardHandler = {
+  get: function( target, key ){
+
+    // In an array, this function will receive the length property
+    // If found, we'll just exit.
+    if( key === 'length'){
+      return target[ key ];
+    }
+
+    let cards = new Map([
+      ['jack',  11],
+      ['queen', 12],
+      ['king',  13],
+      ['ace',   14]
+    ]);
+ 
+    let currentCard = target[ key ].toLowerCase();
+
+    // Let's find the current card in the Map
+    if(cards.has(currentCard)){
+      return cards.get(currentCard);
+    }
+
+    return parseInt( target[ key ] ); 
+  }
+};
+
+let deck = [ "8", "9", "10", "jack", "king", "queen", "ace" ];
+
+let cardValues = new Proxy( deck, cardHandler );
+
+console.log( cardValues );      // [8, 9, 10, 11, 13, 12, 14]
+~~~
+
+Let's proxy a function. In the example below, we want to subtract the lower value from the highest.
+{: .padding-top}
+
+~~~ javascript
+function subtraction(a, b) {
+  return a - b; 
+}
+
+let subtractionHandler = {
+  apply: function apply( target, scope, args ) {
+
+    let [ a , b ] = args;
+
+    // Subtract the lower value from the highest
+    if ( b > a ){
+      return target.apply( scope, [ b, a ] );
+    }
+
+    return target.apply( scope, args );
+  }
+};
+
+let customSubtract = new Proxy(subtraction, subtractionHandler);
+console.log(customSubtract(10, 5));   // 5
+console.log(customSubtract(5, 10));   // 5
+~~~
+
+[More proxy information](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Proxy){:target="_blank"}.
+{: .padding-top}
+
 + promises
 + classes
 + unicode
++ reflect api
++ typed objects [More typed objects information](http://wiki.ecmascript.org/doku.php?id=harmony:typed_objects){:target="_blank"}.
 + modules
 + module loaders
-+ proxies
 + subclassable built-ins
 + math + number + string + array + object APIs
 + binary and octal literals
-+ reflect api
 + tail calls
++ object: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object/assign
 {: .hidden}
