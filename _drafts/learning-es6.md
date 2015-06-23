@@ -34,20 +34,20 @@ There's a lot of cool stuff in ES6!
 
 ## Setup
 
-I would suggest to try out the examples below in Chrome since it seems that most features are available using something like [jsbin](http://jsbin.com){:target="_blank"} or [codepen](http://codepen.io/pen/){:target="_blank"} with Babel set as the JavaScript preprocessor.
+I would suggest to try out the examples below in Chrome since it seems that most features are available using something like [jsbin](http://jsbin.com){:target="_blank"} or [codepen](http://codepen.io/pen/){:target="_blank"} with Babel set as the JavaScript preprocessor. 
 
 If you decide to use ES6 as part of your project, you're going to need to include a few things
 
-### Server-side
+### Server-side <span style="color:red">RECHECK THIS</span>
 
 If you don't know Node.js, you're missing out. See the [Node.js site](https://nodejs.org/){:target="_blank"} for more information. It's super easy to setup.
 
-Use the `--harmony` flag to be able to use ES6. And make sure you put `"use strict"` at the top of your file... otherwise, you'll get errors.
+Use the `--harmony` flag to be able to use ES6. And make sure you put `"use strict"` at the top of your file... otherwise, you'll get errors. `Not all features are enabled so some examples below will work if you decide to test this way. [See what's available](https://github.com/joyent/node/wiki/es6-%28a.k.a.-harmony%29-features-implemented-in-v8-and-available-in-node)`{:target="_blank"}.
 
 ~~~ javascript
-"use strict"
-let test = 10
-console.log(test)
+"use strict";
+let test = 10;
+console.log(test);
 ~~~
 
 ~~~ bash
@@ -1254,7 +1254,11 @@ console.log(customSubtract(5, 10));   // 5
 [More proxy information](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Proxy){:target="_blank"}.
 {: .padding-top}
 
-+ promises
+### Promises
+
+[More promises information](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise){:target="_blank"}.
+{: .padding-top}
+
 + classes
 + unicode
 + reflect api
@@ -1262,8 +1266,16 @@ console.log(customSubtract(5, 10));   // 5
 + modules
 + module loaders
 + subclassable built-ins
-+ math + number + string + array + object APIs
 + binary and octal literals
 + tail calls
 + object: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object/assign
++ math + number + string + array + object APIs
+  ++ .repeat(n) - copy current string n times
+  ++ .startsWith(str)
+  ++ .endsWith(str)
+  ++ .contains(str)
+  ++ .toArray()
+  ++ isFinite()
+  ++ isInteger()
+  ++ isNaN()  https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number/isNaN
 {: .hidden}
