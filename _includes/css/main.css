@@ -513,7 +513,7 @@ footer .footer-below {
 }
 
 .affix{
-    top: 130px;
+    top: 120px;
 }
 
 .important {
@@ -527,4 +527,11 @@ footer .footer-below {
 
 @media all and (max-width: 990px) {
     .post-sidebar{display:none;}
+}
+
+.post-sidebar-toc {
+    margin: 0;
+    font-size: 20px;
+    color: #0F8870;
+    font-weight: bold;
 }
