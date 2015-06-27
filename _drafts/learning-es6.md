@@ -1256,6 +1256,24 @@ console.log(customSubtract(5, 10));   // 5
 
 ### Promises
 
+Promises are used for async operations. It can be in the following states:
+{: .padding-top}
+
++ pending: The operation has not completed and is not rejected.
++ fulfilled: The operation is successful
++ rejected: The operation failed.
++ settled: The operation is either complete or rejected.
+
+Once a promise is fulfilled or rejected, it is immutable.
+
+#### Construct a Promise
+
+~~~ javascript
+let promise = new Promise(function (fulfill, reject){
+  
+});
+~~~
+
 [More promises information](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise){:target="_blank"}.
 {: .padding-top}
 
