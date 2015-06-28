@@ -738,7 +738,7 @@ Generators are useful for creating custom iterators and doing asynchronous JavaS
 > The `function*` defines a generator function and returns a generator object. It's a function, that can be paused many times, and resumed later, allowing other code to run during these paused periods.
 > [More function* information](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/function*){:target="_blank"}.
 
-> A generator is a special type of iterator. It provided a `throw()` method and it's `next()` method accepts a parameter. 
+> A generator is a special function that works as a factory for iterators. It produces a sequence of results instead of a single value.
 > [More generator information](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Generator){:target="_blank"}.
 
 > The yield keyword is used to pause and resume a generator function. 
@@ -1256,22 +1256,69 @@ console.log(customSubtract(5, 10));   // 5
 
 ### Promises
 
-Promises are used for async operations. It can be in the following states:
+Used for async operations, a `Promise` can be in the following states:
 {: .padding-top}
 
 + pending: The operation has not completed and is not rejected.
 + fulfilled: The operation is successful
 + rejected: The operation failed.
-+ settled: The operation is either complete or rejected.
++ settled: The operation is complete and either fulfilled or rejected.
 
 Once a promise is fulfilled or rejected, it is immutable.
 
-#### Construct a Promise
+#### Construct a Promise. 
+
+The promise function is called with two arguments. the first one fullfills the promise and the second one rejects it.
+{: .padding-top}
 
 ~~~ javascript
-let promise = new Promise(function (fulfill, reject){
-  
+let promise = new Promise( function( fulfill, reject ){
+    if ( /* statement */ ) {
+        fulfill( 'Promise fulfilled' );   // Success
+    } else {
+        reject( 'Promise rejected' );  // Failure
+    }
 });
+~~~
+
+#### Use a Promise
+
+You can use a promise with the `then` method which takes two arguments -- a callback for when fullfilled, and one for when rejected.
+
+~~~ javascript
+promise.then( function( result ){
+    // Promise fulfilled
+}, function( err) {
+    // Promise rejected
+});
+~~~
+
+Let's emulate an async operation using setTimeout.
+{: .padding-top}
+
+~~~ javascript
+function async(value){
+    return new Promise( function( fulfill, reject ){
+         setTimeout( function(){
+            if ( value >= 100 ) {
+                fulfill( 'Promise fulfilled' );   // Success
+            } else {
+                reject( 'Promise rejected' );  // Failure - typically an Error object
+            }
+         }, 1000 );
+    });
+}
+
+function onFulfill(data){
+    console.log(data);
+}
+ 
+function onReject(error){
+    console.log(error);
+}
+
+async(100).then(onFulfill, onReject);   // "Promise fulfilled"
+async(30).then(onFulfill, onReject);    // "Promise rejected"
 ~~~
 
 [More promises information](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise){:target="_blank"}.
