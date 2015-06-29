@@ -1283,7 +1283,7 @@ let promise = new Promise( function( fulfill, reject ){
 
 #### Use a Promise
 
-You can use a promise with the `then` method which takes two arguments -- a callback for when fullfilled, and one for when rejected.
+You can use a promise with the `then` method which takes two arguments -- a callback for when fulfilled, and one for when rejected.
 
 ~~~ javascript
 promise.then( function( result ){
