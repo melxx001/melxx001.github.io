@@ -38,31 +38,13 @@ I would suggest to try out the examples below in Chrome since it seems that most
 
 If you decide to use ES6 as part of your project, you're going to need to include a few things
 
-### Server-side <span style="color:red">RECHECK THIS</span>
+### Node.js & Babel
 
-If you don't know Node.js, you're missing out. See the [Node.js site](https://nodejs.org/){:target="_blank"} for more information. It's super easy to setup.
-
-Use the `--harmony` flag to be able to use ES6. And make sure you put `"use strict"` at the top of your file... otherwise, you'll get errors. `Not all features are enabled so some examples below will work if you decide to test this way. [See what's available](https://github.com/joyent/node/wiki/es6-%28a.k.a.-harmony%29-features-implemented-in-v8-and-available-in-node)`{:target="_blank"}.
-
-~~~ javascript
-"use strict";
-let test = 10;
-console.log(test);
-~~~
-
-~~~ bash
-$ node --harmony app.js     # Based on the code above, this command outputs 10 to the terminal
-~~~
-
-### Client-side 
+If you don't know about Node.js, you're missing out. See the [Node.js site](https://nodejs.org/){:target="_blank"} for more information. It's super easy to setup and fun to use.
 
 You're going to need something to help browsers understand the ES6 language. [Babel](https://babeljs.io){:target="_blank"} does a pretty good job. 
 
-> **IMPORTANT**: Compiling in the browser has a fairly limited use case, so if you are working on a production site, you should **precompile your scripts server-side**. See [setup build systems](http://babeljs.io/docs/setup/){:target="_blank"} for more information.
-
-I was going to demonstrate how to include babel directly in the browser but decided against it after seeing that the file I downloaded at the time of this writing is over 85000 lines and 2.9 MB!!!!! The minified version itself is huge at 1.8MB!! 
-
-> Again... Precompile and bundle your code server-side during the build prior to serving it to your client. 
+> **IMPORTANT**: Compiling in the browser directly has a fairly limited use case, so if you are working on a production site, you should **precompile your scripts server-side**. See [setup build systems](http://babeljs.io/docs/setup/){:target="_blank"} for more information.
 
 ### Compiling ES6 code to ES5 
 
@@ -170,7 +152,7 @@ var obj2 = _defineProperty({}, animal, 'name');
 
 ## Features
 
-This is **not** a complete list of features. The features themselves will not have every scenario but I think a good amount to understand what's going on.
+This is **not** a complete list of features. The features themselves will not have every scenario but I think there's a good amount to understand what's going on.
 
 ### Let and const
 
@@ -1324,7 +1306,10 @@ async(30).then(onFulfill, onReject);    // "Promise rejected"
 [More promises information](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise){:target="_blank"}.
 {: .padding-top}
 
-+ classes
+### Classes
+
+
+
 + unicode
 + reflect api
 + typed objects [More typed objects information](http://wiki.ecmascript.org/doku.php?id=harmony:typed_objects){:target="_blank"}.
