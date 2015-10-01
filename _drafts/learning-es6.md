@@ -1308,6 +1308,11 @@ async(30).then(onFulfill, onReject);    // "Promise rejected"
 
 ### Classes
 
+ES6 Classes only simulate class-like inheritance hierarchies using functions and prototypes. They don't really exist. They are syntactic sugar over existing Javascript prototypical inheritance. Classes are really just functions and make the code a little more readable.
+
+
+[More classes information](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Classes){:target="_blank"}.
+{: .padding-top}
 
 
 + unicode
