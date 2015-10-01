@@ -1,13 +1,13 @@
 ---
 layout: posts
-postid: 2015-06-02-1
+postid: 2015-10-01-learning-es6
 published: true
-comments: false
-showcommentcount: false
-date: 2015-06-02
-img: 
+comments: true
+showcommentcount: true
+date: 2015-10-01
+img: learning-es6.png
 alt: Learning ES6
-projectdate: June 2015
+projectdate: October 2015
 sitename: Learning ES6
 theurl: 
 category: Development
