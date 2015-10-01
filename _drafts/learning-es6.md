@@ -341,7 +341,7 @@ console.log( one );             // { result: function result() { return 'data'; 
 console.log( one.result() );    // "data"
 ~~~
 
-Method name shorthand notation allows to omit the keyword `function` and colon `:`.
+Method name shorthand notation allows omitting the keyword `function` and colon `:`.
 {: .padding-top}
 
 ~~~ javascript
@@ -732,7 +732,7 @@ Generators are useful for creating custom iterators and doing asynchronous JavaS
 ##### Examples
 {: .padding-top}
 
-> **Important**: At the time of this writing, I couldn't get the generator examples below to work in jsbin using the Babel preprocessor. 
+> **Important**: At the time of this writing, I couldn't get the generator examples below to work in jsbin using the ES6/Babel preprocessor. 
 > 
 > I had to switch it to JavaScript and used the Chrome browser. You could paste these example in the Chrome console too.
 
@@ -803,7 +803,7 @@ console.log( characters.next() );   // { value: undefined, done: true }
 The `Set` object lets you store unique values of any type. 
 {: .padding-top}
 
-The `has` method checks if an item exists or not. The property `size` returns the size of the `Set`.
+Use the `has` method checks if an item exists or not. The property `size` returns the size of the `Set`.
 {: .padding-top}
 
 ~~~ javascript
@@ -897,7 +897,7 @@ for ( let card of cards ){
 The `Map` object is a simple key/value map. Any value can be used as either a key or a value.
 {: .padding-top}
 
-The `has` method checks if an item exists or not. The `get` returns the value of a key.
+Use the `has` method checks if an item exists or not. The `get` returns the value of a key.
 {: .padding-top}
 
 ~~~ javascript
@@ -1270,7 +1270,7 @@ You can use a promise with the `then` method which takes two arguments -- a call
 ~~~ javascript
 promise.then( function( result ){
     // Promise fulfilled
-}, function( err) {
+}, function( err ) {
     // Promise rejected
 });
 ~~~
@@ -1279,7 +1279,7 @@ Let's emulate an async operation using setTimeout.
 {: .padding-top}
 
 ~~~ javascript
-function async(value){
+function async( value ){
     return new Promise( function( fulfill, reject ){
          setTimeout( function(){
             if ( value >= 100 ) {
@@ -1291,16 +1291,16 @@ function async(value){
     });
 }
 
-function onFulfill(data){
-    console.log(data);
+function onFulfill( data ){
+    console.log( data );
 }
  
-function onReject(error){
-    console.log(error);
+function onReject( error ){
+    console.log( error );
 }
 
-async(100).then(onFulfill, onReject);   // "Promise fulfilled"
-async(30).then(onFulfill, onReject);    // "Promise rejected"
+async(100).then( onFulfill, onReject );   // "Promise fulfilled"
+async(30).then( onFulfill, onReject );    // "Promise rejected"
 ~~~
 
 [More promises information](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise){:target="_blank"}.
@@ -1309,10 +1309,267 @@ async(30).then(onFulfill, onReject);    // "Promise rejected"
 ### Classes
 
 ES6 Classes only simulate class-like inheritance hierarchies using functions and prototypes. They don't really exist. They are syntactic sugar over existing Javascript prototypical inheritance. Classes are really just functions and make the code a little more readable.
+{: .padding-top}
 
+> **Important**: unlike function declarations, class declarations can’t be hoisted and an exception will be thrown.
+
+#### Base class information
+
+##### Definition
+{: .padding-top}
+
+~~~ javascript
+class Hero {
+    constructor( name, power ) {
+        this._name = name;
+        this._power = power;
+    }
+    name() {
+        return this._name;
+    }
+    power() {
+        return this._power;
+    }
+}
+
+let hero = new Hero( "Wolverine", "Healing factor and claws" );
+
+console.log( hero.name() );     // "Wolverine"
+console.log( hero.power() );    // "Healing factor and claws"
+~~~
+
+##### Expressions
+{: .padding-top}
+
+A class expression is another way to define a class. Class expressions can be named (such as the example above) or unnamed. The name given to a named class expression is local to the class's body.
+
+~~~ javascript
+let Hero = class HeroClass {
+    getClassName() {
+        return HeroClass.name;
+    }
+}
+
+let hero = new Hero();
+
+console.log( hero.getClassName() );   // "HeroClass"
+console.log( HeroClass );             // "ReferenceError: HeroClass is not defined
+~~~
+
+#### Class Body
+
+##### Methods
+{: .padding-top}
+
+There are three types of methods in a class: constructor, static and prototype:
+
++ The constructor pseudo-method is the function thaat defines the class.
++ Static methods are defined using `static` and are properties specific to the class but are not inherited by instances of the class
++ Prototype methods are properties that are inherited by instances of the class
+
+~~~ javascript
+class Hero {
+    // Constructor
+    constructor( name ) {
+        this._name = name;
+    }
+
+    // Static method
+    static test() {
+        return 123;
+    }
+
+    // Prototype method
+    name() {
+        return this._name;
+    }
+}
+
+let hero = new Hero("Wolverine");
+
+console.log( hero.name() );    // "Wolverine"
+console.log( Hero.test() );    // 123
+
+console.log( typeof Hero.prototype.name );    // function
+console.log( typeof Hero.prototype.test );    // undefined
+~~~
+
+##### Subclasses
+{: .padding-top}
+
+The `extends` keyword is used to create a derived class from a base class.
+
+~~~ javascript
+class Hero {
+    constructor( name, power ) {
+        this._name = name;
+        this._power = power;
+    }
+    name() {
+        return "The hero's name is : " + this._name;
+    }
+    power() {
+        return this._power;
+    }
+}
+
+class Avenger extends Hero {
+    name() {
+        return "The Avenger's name is : " + this._name;
+    }
+}
+
+let hero1 = new Hero( "Wolverine", "Healing factor and claws" );
+let hero2 = new Avenger( "Hulk", "Super Strength" );
+
+console.log( hero1.name() );     // "The hero's name is : Wolverine"
+console.log( hero1.power() );    // "Healing factor and claws"
+
+console.log( hero2.name() );     // "The Avenger's name is : Hulk"
+console.log( hero2.power() );    // "Super Strength"
+~~~
+
+##### Super keyword
+{: .padding-top}
+
+The super keyword is used to call functions on an object's parent.
+
+~~~ javascript
+class Hero {
+    constructor( name ) {
+        this._name = name;
+    }
+    name() {
+        return "The hero's name is " + this._name + ". ";
+    }
+}
+
+class Avenger extends Hero {
+    constructor( name ) {
+        super( name.toUpperCase() );
+    }
+    name() {
+        return super.name() + "He is an Avenger!";
+    }
+}
+
+let hero = new Avenger( "Hulk" );
+console.log( hero.name() );     // "The hero's name is HULK. He is an Avenger!"
+~~~
+
+##### Setters and Getters
+{: .padding-top}
+
+The syntax for getters and setters is just like in ECMAScript 5 object literals.
+
+~~~ javascript
+class Hero {
+    constructor( name, power ) {
+        this._name = name;
+        this._power = power;
+    }
+    set name( name ) {
+        this._name = name;
+    }
+    get name() {
+        return this._name;
+    }
+    set power(power) {
+        this._power = power;
+    }
+    get power() {
+        return this._power;
+    }
+}
+
+let hero = new Hero( "Wolverine", "Healing factor and claws" );
+
+console.log( hero.name );     // "Wolverine"
+console.log( hero.power );    // "Healing factor and claws"
+~~~
 
 [More classes information](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Classes){:target="_blank"}.
 {: .padding-top}
+
+### New Built-in Methods
+
+#### Objects
+
+`Object.assign` is a new function to assign enumerable properties of one or more source objects onto a destination object
+
+> At the time of this writing, only Firefox has support for this. So if you're testing this example in jsbin, try it in Firefox.
+
+~~~ javascript
+let var1 = {};
+let var2 = { a: 200, d: 10 };
+let var3 = { b: 1, c: 2 };
+
+Object.assign( var1, var2, var3 )
+console.log( var1 ); // { a: 200, b: 1, c: 2, d: 10 }
+~~~
+
+#### Arrays
+
+`find` is a function for finding an element in an array. It will return the first element it finds.
+
+> At the time of this writing, only Firefox has support for this. So if you're testing this example in jsbin, try it in Firefox.
+
+~~~ javascript
+let search = [ 1, 3, 4, 2 ].find( x => x > 3 );
+console.log( search );  // 4
+~~~
+
+#### Strings
+
+`repeat()`  constructs and returns a new string which contains the specified number of copies of the string on which it was called, concatenated together. 
+
+~~~ javascript
+let test = "a"
+console.log( test.repeat(5) );  // aaaaa
+~~~
+
+There are string functions to search for a substring. Each of these methods has a position as an optional second parameter, which specifies where the string to be searched starts or ends
+
+~~~ javascript
+console.log( "hello".startsWith("he") );    // true
+console.log( "hello".endsWith("lo") );      // true
+
+console.log( "hello".contains("es") );      // false
+
+console.log( "hello".includes("he") );      // true
+console.log( "hello".includes("he", 1) );   // false
+console.log( "hello".includes("ell", 1) );  // true
+console.log( "hello".includes("ell", 2) );  // false
+~~~
+
+`toArray()` creates an array containing each character of a string.
+~~~ javascript
+console.log( "hello".toArray() )            // ["h", "e", "l", "l", "o"]
+~~~
+
+#### Numbers
+
+~~~ javascript
+console.log( Number.isInteger(1) );                     // true
+console.log( Number.isInteger(1.2) );                   // false
+
+console.log( Number.isNaN("test") );                    // false
+console.log( Number.isNaN(NaN) );                       // true
+console.log( Number.isNaN(0 / 0) );                     // true
+console.log( Number.isNaN(undefined) );                 // false
+
+console.log( Number.isFinite(NaN) );                    // false
+console.log( Number.isFinite(123) );                    // true
+
+console.log( Number.isSafeInteger(100) );               // true
+console.log( Number.isSafeInteger(9999999999999999) );  // false
+
+console.log( Math.cbrt(27) )                            // 3
+
+console.log( Math.trunc(9.7) )                          // 9
+console.log( Math.trunc( 0.1333) )                      // 0
+console.log( Math.trunc(-10.133) )                      // -10
+~~~
 
 
 + unicode
@@ -1320,7 +1577,6 @@ ES6 Classes only simulate class-like inheritance hierarchies using functions and
 + typed objects [More typed objects information](http://wiki.ecmascript.org/doku.php?id=harmony:typed_objects){:target="_blank"}.
 + modules
 + module loaders
-+ subclassable built-ins
 + binary and octal literals
 + tail calls
 + object: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object/assign
