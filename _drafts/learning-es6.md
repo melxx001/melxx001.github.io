@@ -1432,7 +1432,7 @@ console.log( hero2.power() );    // "Super Strength"
 ##### Super keyword
 {: .padding-top}
 
-The super keyword is used to call functions on an object's parent.
+The `super` keyword is used to call functions on an object's parent.
 
 ~~~ javascript
 class Hero {
@@ -1510,7 +1510,7 @@ console.log( var1 ); // { a: 200, b: 1, c: 2, d: 10 }
 
 #### Arrays
 
-`find` is a function for finding an element in an array. It will return the first element it finds.
+`find()` looks for an element in an array. It will return the first element it finds.
 
 > At the time of this writing, only Firefox has support for this. So if you're testing this example in jsbin, try it in Firefox.
 
@@ -1528,7 +1528,8 @@ let test = "a"
 console.log( test.repeat(5) );  // aaaaa
 ~~~
 
-There are string functions to search for a substring. Each of these methods has a position as an optional second parameter, which specifies where the string to be searched starts or ends
+There are string functions to search for a substring. Each of these methods has a position as an optional second parameter, which specifies where the string to be searched starts or ends.
+{: .padding-top}
 
 ~~~ javascript
 console.log( "hello".startsWith("he") );    // true
@@ -1543,6 +1544,8 @@ console.log( "hello".includes("ell", 2) );  // false
 ~~~
 
 `toArray()` creates an array containing each character of a string.
+{: .padding-top}
+
 ~~~ javascript
 console.log( "hello".toArray() )            // ["h", "e", "l", "l", "o"]
 ~~~
@@ -1571,22 +1574,3 @@ console.log( Math.trunc( 0.1333) )                      // 0
 console.log( Math.trunc(-10.133) )                      // -10
 ~~~
 
-
-+ unicode
-+ reflect api
-+ typed objects [More typed objects information](http://wiki.ecmascript.org/doku.php?id=harmony:typed_objects){:target="_blank"}.
-+ modules
-+ module loaders
-+ binary and octal literals
-+ tail calls
-+ object: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object/assign
-+ math + number + string + array + object APIs
-  ++ .repeat(n) - copy current string n times
-  ++ .startsWith(str)
-  ++ .endsWith(str)
-  ++ .contains(str)
-  ++ .toArray()
-  ++ isFinite()
-  ++ isInteger()
-  ++ isNaN()  https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number/isNaN
-{: .hidden}
