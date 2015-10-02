@@ -28,7 +28,9 @@ tags : [ES6, ES2015, learning]
 
 ## What is ES6?
 
-ECMAScript 6 is the upcoming version of the ECMAScript standard, This interesting [site](http://kangax.github.io/compat-table/es6/){:target="_blank"} shows ES6 compatibility with current browsers, compilers and servers. If you have time to kill, you can also see the draft [ES2015 standard](https://people.mozilla.org/~jorendorff/es6-draft.html){:target="_blank"} for full specification of the ECMAScript 6 language.
+ECMAScript 6 is the newest version of the ECMAScript standard. It is the 2015 update to the JavaScript language and is refered to as ES6 or ES2015.
+
+To see ES6's compatibility with current browsers, compilers and servers, you can find a table at this [site](http://kangax.github.io/compat-table/es6/){:target="_blank"}. If you have time to kill, you can also see the draft [ES2015 standard](https://people.mozilla.org/~jorendorff/es6-draft.html){:target="_blank"} for full specification of the ECMAScript 6 language.
 
 There's a lot of cool stuff in ES6!
 
@@ -162,6 +164,12 @@ This is **not** a complete list of features. The features themselves will not ha
 + There is no hoisting because of the **temporal dead zone**. `This is the region of a program, where a variable or a parameter cannot be accessed until it’s initialized`. If you want to read more about this, check out [Temporal Dead Zone (TDZ) demystified ](http://jsrocks.org/2015/01/temporal-dead-zone-tdz-demystified/){:target="_blank"}
 
 #### Let
+
+~~~ javascript
+let num = '10';
+console.log( num );   // 10
+~~~
+
 ~~~ javascript
 num = '10';
 let num;
