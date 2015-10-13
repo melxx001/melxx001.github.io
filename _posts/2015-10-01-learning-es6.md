@@ -137,10 +137,10 @@ As you can see, it's been transformed to syntax that the current browsers will u
 
 function _defineProperty(obj, key, value) { return Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); }
 
-var firstNname = 'Bob';
+var firstName = 'Bob';
 var lastname = 'Smith';
 var person = {
-  firstNname: firstNname,
+  firstName: firstName,
   lastname: lastname
 };
 
