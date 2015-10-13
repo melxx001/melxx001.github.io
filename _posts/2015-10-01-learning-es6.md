@@ -586,8 +586,8 @@ let symbol1  = Symbol(str);
 let symbol2  = Symbol(str);
 
 console.log( typeof symbol1 );       // "symbol"
-console.log( symbol1 == symbol2 );   // false because symbols are unique
 console.log( symbol1 === symbol2 );  // false because symbols are unique
+console.log( symbol1 == symbol2 );   // false because symbols are unique
 ~~~
 
 Let's look at a few examples:
@@ -621,7 +621,7 @@ console.log( user );              // { name: "Bob Smith", Symbol(): "changed-bob
 console.log( user[ username ] );  // "changed-bob"
 ~~~
 
-Interestingly, if you change the value of initial symbol used, you loose the reference to it. That's because symbols are unique.
+Interestingly, if you change the value of initial symbol used, you lose the reference to it. That's because symbols are unique.
 {: .padding-top}
 
 ~~~ javascript
@@ -1375,7 +1375,7 @@ console.log( HeroClass );             // "ReferenceError: HeroClass is not defin
 
 There are three types of methods in a class: constructor, static and prototype:
 
-+ The constructor pseudo-method is the function thaat defines the class.
++ The constructor pseudo-method is the function that defines the class.
 + Static methods are defined using `static` and are properties specific to the class but are not inherited by instances of the class
 + Prototype methods are properties that are inherited by instances of the class
 
