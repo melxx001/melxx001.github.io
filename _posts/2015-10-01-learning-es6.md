@@ -243,7 +243,7 @@ function display( test1 = 'first', test2 = 'second' ){   // Super awesome
 }
 
 console.log( display() );               // "first -- second"
-console.log( display(null,null) );      // "null -- second"
+console.log( display(null,null) );      // "null -- second" 
 console.log( display( '1', '2') );      // "1 -- 2"
 ~~~
 
@@ -264,11 +264,11 @@ console.log(display('1', '2'));     // "1 -- 2"
 
 ### Template strings
 
-This is another cool way of constructing strings. You have to put tildes around expressions and use `$`. Ex: `` `${ expression }` ``
+This is another cool way of constructing strings. You have to put back ticks around expressions and use `$`. Ex: `` `${ expression }` ``
 
 ~~~ javascript
 let one = 7, two = 1, three = 1;
-let str = `${ one }, ${ two } and ${ three }`;
+let str = `${one}, ${two} and ${three}`;
 
 console.log( str );         // "7, 1 and 1"
 ~~~
@@ -276,7 +276,7 @@ console.log( str );         // "7, 1 and 1"
 ~~~ javascript
 let userName = "guest";
 let token = "123456";
-let url = `http://www.example.com?userName=${ userName }&token=${ token }`;
+let url = `http://www.example.com?userName=${userName}&token=${token}`;
 
 console.log( url );   // "http://www.example.com?userName=guest&token=123456"
 ~~~
@@ -293,14 +293,14 @@ This is pretty cool!!
 ~~~ javascript
 let m = 38;
 
-console.log(`{ m } badgers`);   // "{ m } badgers"
+console.log(`{m} badgers`);   // "{m} badgers"
 ~~~
 
 `{ m }` is not a valid substitution. The correct form is `${ m }`.
 {: .padding-bottom}
 
 ~~~ javascript
-let message = `Hello, ${ firstName }`;
+let message = `Hello, ${firstName}`;
 
 console.log( message );     // ReferenceError: firstName is not defined
 ~~~
