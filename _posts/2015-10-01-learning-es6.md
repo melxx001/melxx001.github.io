@@ -357,11 +357,12 @@ Method name shorthand notation allows omitting the keyword `function` and colon 
 
 ~~~ javascript
 let expr = {
-  total() { return 'index'; }
+  index() { return 'index'; },
+  sum( a, b ) { return a + b; }
 };
 
-console.log( expr );          // { total: function total() { return 'index'; } }
-console.log( expr.total() );  // "index"
+console.log( expr.index() );        // "index"
+console.log( expr.sum( 1, 2 ) );    // 3
 ~~~
 
 Computed property names syntax allows you to put an expression in brackets `[]` which will be computed as the property name. 
