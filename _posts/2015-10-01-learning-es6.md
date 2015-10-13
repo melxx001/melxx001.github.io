@@ -233,7 +233,9 @@ console.log( name( ...user ) );  // "Bob Smith"
 
 ### Default parameters
 
-I really like this feature because it makes initializing arguments much easier. Gone are the days where I have to continuously check if a parameter has a value and set a default. You can give function arguments initial values in it's definition. 
+I really like this feature because it makes initializing arguments much easier. Gone are the days where I have to continuously check if a parameter has a value and set a default. You can give function arguments initial values in it's definition.
+
+>  **Note**: This only applies if the parameter is `undefined` and **not** when the parameter's value is `null`. 
 
 ~~~ javascript
 function display( test1 = 'first', test2 = 'second' ){   // Super awesome
@@ -241,6 +243,7 @@ function display( test1 = 'first', test2 = 'second' ){   // Super awesome
 }
 
 console.log( display() );               // "first -- second"
+console.log( display(null,null) );      // "null -- second"
 console.log( display( '1', '2') );      // "1 -- 2"
 ~~~
 
