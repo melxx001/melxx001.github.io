@@ -1,5 +1,5 @@
 ---
-layout: posts
+layout: post
 title: Move a git directory
 tags: [git, learning, development]
 published: true

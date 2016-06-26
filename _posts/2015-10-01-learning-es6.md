@@ -1,5 +1,5 @@
 ---
-layout: posts
+layout: post
 postid: 2015-10-01-learning-es6
 published: true
 comments: true
@@ -11,7 +11,7 @@ projectdate: October 2015
 sitename: Learning ES6
 theurl: 
 category: Development
-description: Coming Soon
+description: ES6 Reference
 title: Learning ES6
 tags : [ES6, ES2015, learning]
 ---

@@ -1,5 +1,5 @@
 ---
-layout: posts
+layout: post
 postid: 2
 published: true
 comments: false
