@@ -25,13 +25,15 @@ This is an example to help me put together a Universal JavaScript project using 
 
 ## Project Setup
 
-There's a bit of setup needed to get everything working correctly. Most of this setup is really for development.
+There's a bit of setup needed to get everything working correctly. Most of this setup is really for development. 
+
+The code is available [here](https://github.com/melxx001/redux-starter){:target="_blank"}. There are sequential branches showing the iterations I went through to reach the final version.
 
 ### Webpack
 
 It is a module bundler which transforms various assets (JavaScript, CSS, and HTML) into a format that's easy to consume by the browser. Click [here](http://webpack.github.io/){:target="_blank"} for documentation about webpack.
 
-Below is an example config transforming typescript to ES5 JavaScript. When we run `$ webpack`, the configuration in webpack.config.js is used to bundle and compile the typescript code.
+Below is an example config transforming typescript to ES5 JavaScript. When we run `webpack` in a terminal, the configuration in `webpack.config.js` is used to bundle and compile the typescript code.
 
 #### webpack.config.js
 
@@ -133,6 +135,10 @@ module.exports = config;
 
 Typescript will be used in this starter project.
 
+Since webpack will be used to compile and bundle the code, The `tsconfig.json` below will be used by the IDE and also to compile all the code into to a folder `_tsc` in order to run coverage. See the coverage section below.
+
+#### tsconfig.json
+
 ~~~ bash
 {
   "compileOnSave": false,
@@ -162,16 +168,77 @@ Check out the Typescript [documentation](http://www.typescriptlang.org/docs/tuto
 
 ### Testing
 
+I decided to use the [Tape](https://github.com/substack/tape){:target="_blank"} test module after reading [Why I use Tape Instead of Mocha & So Should You](https://medium.com/javascript-scene/why-i-use-tape-instead-of-mocha-so-should-you-6aa105d8eaf4#.mo56gj6jk){:target="_blank"} by Eric Elliot.
+
+You name my tests `<name>.test.ts` and save the file in the same folder of the file I'm testing.
+
+For example, tests for utils.ts are in utils.test.ts
+
+~~~ bash
+|-- src
+  |-- utils.ts
+  |-- utils.test.ts
+|-- server.ts
+|-- server.test.ts
+~~~
+
+#### Hello.tsx
+
+~~~ javascript
+import * as React from 'react';
+
+export interface HelloProps {
+  compiler: string;
+  framework: string;
+}
+
+export class Hello extends React.Component<HelloProps, {}> {
+  render() {
+    return <h1>This page uses {this.props.compiler} and {this.props.framework}!</h1>;
+  }
+}
+~~~
+
+#### Hello.test.tsx
+
+~~~ javascript
+import * as React from 'react';
+import * as test from 'tape';
+import { createRenderer } from 'react-addons-test-utils';
+
+import { Hello } from './Hello';
+
+test('test', (t: test.Test) : void => {
+  t.equal(typeof Hello, 'function', 'Check if Hello is a function');
+
+  const compiler = 'TypeScript';
+  const framework = 'React';
+
+  const test = <Hello compiler={compiler} framework={framework} />;
+  t.deepEqual(test.props, { compiler: compiler, framework: framework }, 'Check is Hello returns correctly');
+
+  const renderer = createRenderer();
+  renderer.render(<Hello compiler={compiler} framework={framework} />);
+  const result = renderer.getRenderOutput();
+  t.equal(result.type, 'h1', 'Check Hello returns h1');
+
+  t.end();
+});
+
+~~~
+
 ### Coverage
 
-### Tslint
+I've yet to find a coverage tool that can easily be used with Typescript. Also, I wanted to minimize the amount of packages to use to get coverage. I eventualy decided to continue use [istanbul](https://github.com/gotwarlost/istanbul){:target="_blank"}.
 
-### Eslint
+The twist is that I compile Typescript to ES6 code (check out tsconfig.json above) because compiling to ES5 adds various items which reduces coverage. I then run coverage on the compiled code.
 
+Running `npm run coverage` in a terminal will create a `coverage` folder with an `index.html` which will show the coverage data.
 
-## React
+### Linting
 
-## Redux
+I use [TSLint](https://palantir.github.io/tslint/){:target="_blank"} to check the Typescript files in the project and [ESLint](http://eslint.org/){:target="_blank"} to lint to regular JavaScript files.
 
-## Typescript
+You can run `npm run lint` in a terminal to lint the code.
+
 
