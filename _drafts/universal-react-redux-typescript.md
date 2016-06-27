@@ -31,7 +31,7 @@ There's a bit of setup needed to get everything working correctly. Most of this 
 
 It is a module bundler which transforms various assets (JavaScript, CSS, and HTML) into a format that's easy to consume by the browser. Click [here](http://webpack.github.io/){:target="_blank"} for documentation about webpack.
 
-Below is an example config transforming typescript to ES5 JavaScript. When we run `$ webpack`, this configuration is used to compile typescript code.
+Below is an example config transforming typescript to ES5 JavaScript. When we run `$ webpack`, the configuration in webpack.config.js is used to bundle and compile the typescript code.
 
 #### webpack.config.js
 
@@ -112,7 +112,7 @@ config.cache = true;
 config.debug = true;
 config.devtool = 'inline-source-map';
 
-// This will complile and reload code changes
+// This will compile and reload code changes
 config.entry.index.unshift('webpack-dev-server/client?http://localhost:8080/');
 
 config.plugins = [
@@ -128,7 +128,41 @@ module.exports = config;
 
 ~~~
 
+
 ### Typescript
+
+Typescript will be used in this starter project.
+
+~~~ bash
+{
+  "compileOnSave": false,
+  "buildOnSave": false,
+  "compilerOptions": {
+    "module": "commonjs",
+    "target": "es6",
+    "emitDecoratorMetadata": true,
+    "experimentalDecorators": true,
+    "noImplicitAny": true,
+    "removeComments": true,
+    "sourceMap": true,
+    "outDir": "_tsc",
+    "jsx": "react"
+
+  },
+  "exclude": [
+    "node_modules",
+    "_build",
+    "typings/index",
+    "typings/index.d.ts"
+  ]
+}
+~~~
+
+Check out the Typescript [documentation](http://www.typescriptlang.org/docs/tutorial.html){:target="_blank"} and [configuration](http://www.typescriptlang.org/docs/handbook/tsconfig-json.html){:target="_blank"}.
+
+### Testing
+
+### Coverage
 
 ### Tslint
 
