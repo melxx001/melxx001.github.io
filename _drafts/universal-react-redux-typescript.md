@@ -73,6 +73,8 @@ Add a `tsconfig.json` in the root directory with the configuration below:
 
 Since webpack will be used to compile and bundle the code, The `tsconfig.json` above will be used by the IDE and also to compile all the code into to a folder `_tsc` in order to run coverage. See the coverage section below.
 
+Note that the target is `es6` instead of `es5` because I didn't want the coverage to be skewed due to the transpilation. 
+
 ### React
 
 ### Webpack
