@@ -10,7 +10,7 @@
 		<div class="row">
 			<div class="col-lg-8 col-lg-offset-2">
 				<form action="//formspree.io/{{ site.email }}" method="POST" name="sentMessage" id="contactForm" novalidate>
-					<input type="hidden" name="_next" value="//{{ site.host }}/thankyou/" />
+					<input type="hidden" name="_next" value="//{{ site.hostname }}/thankyou/" />
 					
 					<div class="row control-group">
 						<div class="form-group col-xs-12 floating-label-form-group controls">
@@ -27,7 +27,7 @@
 						</div>
 					</div>
 					<div>
-						<input type="hidden"  name="_subject" value="Message from {{ site.domain }}">
+						<input type="hidden"  name="_subject" value="Message from {{ site.domainname }}">
 						<input type="text" name="_gotcha" style="display:none" />
 					</div>
 					<div class="row control-group">
