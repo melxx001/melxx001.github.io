@@ -64,7 +64,7 @@
                         reload: true,
                         config: function () {  
                             this.page.identifier = event.target.dataset.post;  
-                            this.page.url = "http://melxx001.github.com/#!" + event.target.dataset.post;
+                            this.page.url = "{{ site.url }}/#!" + event.target.dataset.post;
                         }
                     });
                 }
