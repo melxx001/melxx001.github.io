@@ -115,6 +115,8 @@ Since webpack will be used to compile and bundle the code, The `tsconfig.json` a
 
 ### Linting
 
+I use [TSLint](https://palantir.github.io/tslint/){:target="_blank"} to check the Typescript files in the project and [ESLint](http://eslint.org/){:target="_blank"} to lint to regular JavaScript files.
+
 Add a `tslint.json` in the root directory with the configuration below:
 
 #### tslint.json
@@ -788,10 +790,6 @@ The twist is that I compile Typescript to ES6 code (check out tsconfig.json abov
 
 Running `npm run coverage` in a terminal will create a `coverage` folder with an `index.html` which will show the coverage data.
 
-### Linting
-
-I use [TSLint](https://palantir.github.io/tslint/){:target="_blank"} to check the Typescript files in the project and [ESLint](http://eslint.org/){:target="_blank"} to lint to regular JavaScript files.
-
-You can run `npm run lint` in a terminal to lint the code.
+### other
 
 
