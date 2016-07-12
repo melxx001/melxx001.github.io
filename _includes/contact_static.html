@@ -9,8 +9,8 @@
 		</div>
 		<div class="row">
 			<div class="col-lg-8 col-lg-offset-2">
-				<form action="//formspree.io/hicham.elhammouchi@gmail.com" method="POST" name="sentMessage" id="contactForm" novalidate>
-					<input type="hidden" name="_next" value="//melxx001.github.io/thankyou/" />
+				<form action="//formspree.io/{{ site.email }}" method="POST" name="sentMessage" id="contactForm" novalidate>
+					<input type="hidden" name="_next" value="//{{ site.host }}/thankyou/" />
 					
 					<div class="row control-group">
 						<div class="form-group col-xs-12 floating-label-form-group controls">
@@ -27,7 +27,7 @@
 						</div>
 					</div>
 					<div>
-						<input type="hidden"  name="_subject" value="Message from melxx001.github.io">
+						<input type="hidden"  name="_subject" value="Message from {{ site.domain }}">
 						<input type="text" name="_gotcha" style="display:none" />
 					</div>
 					<div class="row control-group">
