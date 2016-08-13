@@ -16,7 +16,7 @@ title: Universal React and Redux
 tags : [React, Redux, Universal, Isomorphic, Typescript]
 ---
 
-This is an example to help me put together a Universal JavaScript project using React, Redux and typescript.
+This is an example to help me put together a Universal JavaScript example using React, Redux and Typescript.
 
 ## Table of contents
 
@@ -89,7 +89,7 @@ Add a `tsconfig.json` in the root directory with the configuration below:
   "buildOnSave": false,
   "compilerOptions": {
     "module": "commonjs",
-    "target": "es6",
+    "target": "es5",
     "emitDecoratorMetadata": true,
     "experimentalDecorators": true,
     "noImplicitAny": true,
@@ -108,9 +108,7 @@ Add a `tsconfig.json` in the root directory with the configuration below:
 }
 ~~~
 
-Since webpack will be used to compile and bundle the code, The `tsconfig.json` above will be used by the IDE and also to compile all the code into to a folder `_tsc` in order to run coverage. We'll eventually get to that in the coverage section below.
-
-**Note that the target is `es6` instead of `es5` because I didn't want the coverage to be skewed due to the transpilation.**
+Since webpack will be used to compile and bundle the code, The `tsconfig.json` above will mainly be used by the IDE.
 {: .padding-top}
 
 ### Linting
@@ -189,6 +187,7 @@ $ npm install --save-dev eslint eslint-plugin-react
 ~~~
 
 Add a `.eslintrc` and a `.eslintignore` in the root directory with the configurations below:
+{: .padding-top}
 
 #### .eslintrc
 ~~~ bash
@@ -402,6 +401,8 @@ $ npm install --save-dev webpack file-loader source-map-loader ts-loader babel-r
 
 The config below transforms typescript to ES5 JavaScript. When we run `node_modules/.bin/webpack` in a terminal, the configuration in `webpack.config.js` is used to bundle and compile the typescript code.
 
+Add a `webpack.config.js` in the root directory and paste in the contents below.
+
 #### webpack.config.js
 
 ~~~ javascript
@@ -409,15 +410,19 @@ The config below transforms typescript to ES5 JavaScript. When we run `node_modu
 // webpack config file to use ES6
 require('babel-register');
 
-const webpack = require('webpack');
 const path = require('path');
 const production = process.env.NODE_ENV === 'production';
 
 const config = {
-  entry: './src/index.tsx',
+  entry: {
+    index: [
+      './src/index.tsx',
+    ],
+  },
   output: {
     filename: '[name].js',
     path: path.join(__dirname, '_build'),
+    publicPath: 'assets',
   },
 
   // Enable source maps for debugging webpack's output.
@@ -451,16 +456,8 @@ const config = {
   },
 };
 
-if (production) {
-  config.plugins = [
-    new webpack.optimize.UglifyJsPlugin({
-      comments: false,
-      test: /\.js$/,
-    }),
-  ];
-}
-
 module.exports = config;
+
 ~~~
 
 ### React
@@ -471,10 +468,11 @@ Next, let's add [React](https://facebook.github.io/react/){:target="_blank"} and
 $ npm install --save react react-dom 
 ~~~
 
-Let's also grab the typescript declaration files for React and ReactDOM.
+Let's also grab the typescript declaration files for Node.js, React and ReactDOM.
 {: .padding-top}
 
 ~~~ bash
+$ node_modules/.bin/typings install env~node -SG
 $ node_modules/.bin/typings install dt~react -SG
 $ node_modules/.bin/typings install dt~react-dom -SG
 ~~~
@@ -487,7 +485,8 @@ Running that will produce a `typings.json` with data similar to:
 ~~~ bash
 {
   "globalDependencies": {
-    "react": "registry:dt/react#0.14.0+20160621225615",
+    "node": "registry:env/node#6.0.0+20160723033700",
+    "react": "registry:dt/react#0.14.0+20160805125551",
     "react-dom": "registry:dt/react-dom#0.14.0+20160412154040"
   }
 }
@@ -495,7 +494,10 @@ Running that will produce a `typings.json` with data similar to:
 
 Let's add some example react code:
 
-Add an `index.html` in the root folder. Create a `src` directory in your root and add a file named `index.tsx`. Create another directory inside `src` called `components` and add a file called `Hello.tsx` (with a capital H).
+ - Add an `index.html` in the root folder
+ - Create a `src` directory in your root and add a file named `index.tsx`
+ - Create another directory inside `src` called `components`
+   - In `src/components`, add a file called `Hello.tsx` (with a capital H).
 
 The structure would look like:
 {: .padding-top}
@@ -508,7 +510,7 @@ The structure would look like:
 |- index.html
 ~~~
 
-Add the following code:
+Add the following code to each file:
 {: .padding-top}
 
 #### index.html
@@ -527,25 +529,9 @@ Add the following code:
 <script src="//fb.me/react-dom-15.1.0.min.js"></script>
 
 <!-- Main -->
-<script src="./_build/bundle.js"></script>
+<script src="assets/index.js"></script>
 </body>
 </html>
-~~~
-
-#### Hello.tsx
-~~~ javascript
-import * as React from 'react';
-
-export interface HelloProps {
-  compiler: string;
-  framework: string;
-}
-
-export class Hello extends React.Component<HelloProps, {}> {
-  render() {
-    return <h1>This page uses {this.props.compiler} and {this.props.framework}!</h1>;
-  }
-}
 ~~~
 
 #### index.tsx
@@ -559,6 +545,24 @@ ReactDOM.render(
   <Hello compiler="TypeScript" framework="React" />,
   document.getElementById('example')
 );
+
+~~~
+
+#### src/components/Hello.tsx
+~~~ javascript
+import * as React from 'react';
+
+export interface HelloProps {
+  compiler: string;
+  framework: string;
+}
+
+export class Hello extends React.Component<HelloProps, {}> {
+  render() {
+    return <h1>This page uses {this.props.compiler} and {this.props.framework}!</h1>;
+  }
+}
+
 ~~~
 
 ### Final touchups
@@ -575,6 +579,7 @@ At this point, your root directory should look like:
 |- .editorconfig
 |- .eslintignore
 |- .eslintrc
+|- index.html
 |- package.json
 |- tsconfig.json
 |- tslint.json
@@ -586,7 +591,7 @@ If you selected the default entries when initializing you project with `npm init
 {: .padding-top}
 ~~~ bash
 {
-  "name": "redux-tutorial",
+  "name": "redux-typescript-starter",
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
@@ -596,30 +601,32 @@ If you selected the default entries when initializing you project with `npm init
   "author": "",
   "license": "ISC",
   "devDependencies": {
-    "eslint": "^3.0.1",
-    "eslint-plugin-react": "^5.2.2",
+    "babel-register": "^6.11.6",
+    "eslint": "^3.3.0",
+    "eslint-plugin-react": "^6.0.0",
     "file-loader": "^0.9.0",
     "source-map-loader": "^0.1.5",
     "ts-loader": "^0.8.2",
-    "tslint": "^3.13.0",
+    "tslint": "^3.14.0",
     "typescript": "^1.8.10",
-    "typings": "^1.3.1",
+    "typings": "^1.3.2",
     "webpack": "^1.13.1"
   },
   "dependencies": {
-    "react": "^15.2.1",
-    "react-dom": "^15.2.1"
+    "react": "^15.3.0",
+    "react-dom": "^15.3.0"
   }
 }
+
 ~~~
 
-Let's update it manually and add a few extra items:
+Let's update the `scripts` section manually and add a few extra items:
 {: .padding-top}
 
 #### package.json
 ~~~ bash
 {
-  "name": "redux-tutorial",
+  "name": "redux-typescript-starter",
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
@@ -634,36 +641,40 @@ Let's update it manually and add a few extra items:
   "author": "",
   "license": "ISC",
   "devDependencies": {
-    "eslint": "^3.0.1",
-    "eslint-plugin-react": "^5.2.2",
+    "babel-register": "^6.11.6",
+    "eslint": "^3.3.0",
+    "eslint-plugin-react": "^6.0.0",
     "file-loader": "^0.9.0",
     "source-map-loader": "^0.1.5",
     "ts-loader": "^0.8.2",
-    "tslint": "^3.13.0",
+    "tslint": "^3.14.0",
     "typescript": "^1.8.10",
-    "typings": "^1.3.1",
+    "typings": "^1.3.2",
     "webpack": "^1.13.1"
   },
   "dependencies": {
-    "react": "^15.2.1",
-    "react-dom": "^15.2.1"
+    "react": "^15.3.0",
+    "react-dom": "^15.3.0"
   }
 }
+
 ~~~
 
 ### Test the setup
 
 Let's delete the `node_modules` and `typings` folders.
 
-#### Install
+#### Install Again
 
 ~~~ bash
 $ npm install
 ~~~
 
-This will re-create the `node_modules`, `typings` folders and a new folder containing code generated by webpack called `_build` that was specified earlier in the `tsconfig.json`. 
+This will re-create the `node_modules` and `typings` folders as well as a new folder containing code generated by webpack called `_build` that was specified earlier in the `tsconfig.json`. 
 
-This generation of code was done in the `postinstall` section of the `package.json`. Once everything installs, we run `npm run typings` to create the `typings` folder and `node_modules/.bin/webpack` to run webpack. Of course, you can run these in a terminal manually.
+> FYI: This generation of code was automatically done by `npm install` thanks to the `postinstall` section of the `package.json`. Once everything installs, we run `npm run typings` to create the `typings` folder and `node_modules/.bin/webpack` to run webpack. 
+>
+> Of course, you can run these in a terminal manually.
 
 #### Linting
 
@@ -679,19 +690,30 @@ No errors should appear.
 $ npm test
 ~~~
 
-This will return `No test specified
-npm ERR! Test failed.  See above for more details`.
+This will return `No test specified. npm ERR! Test failed.  See above for more details`.
 
-And so now we have the intial setup. You can view my example of this [here](https://github.com/melxx001/redux-starter/tree/1-react-typescript-webpack){:target="_blank"}. It might be a little different than the code shown here because I use Travis-CI for continuous integration.
+
+Now we have the intial setup. You can view my example of this [here](https://github.com/melxx001/redux-starter/tree/1-react-typescript-webpack){:target="_blank"}. My examples in github will have slight differences than the tutorial you read here. For instance, there will be extra files and packages because of Travis-CI and coveralls which I use for continuous integration.
 {: .padding-top}
 
 {: .padding-bottom}
 
 ## 2. Adding Webpack Dev Server
 
-#### webpack.config.dev.js
+In development, we want to use [Webpack Dev Server](https://webpack.github.io/docs/webpack-dev-server.html){:target="_blank"} in order to easily compile, bundle and reload code automatically. Trust me... It really sucks to have to manually do it.
 
-In development, we want to use webpack-dev-server in order to easily compile, bundle and reload code without having to manually do it.
+Let's install it:
+
+~~~ bash
+$ npm install --save-dev webpack-dev-server
+~~~
+
+In the webpack setup Let's create a dev setup using the webpack configuration we initialy added in `webpack.config.js`. 
+
+Add a `webpack.config.dev.js` in the root directory and paste the contents below. If you're already using something on port `8080`, then change the below `localhost:8080` to use another port.
+{: .padding-top}
+
+#### webpack.config.dev.js
 
 ~~~ javascript
 // Used for on-the-fly transpilation. This is only needed in the
@@ -699,7 +721,7 @@ In development, we want to use webpack-dev-server in order to easily compile, bu
 require('babel-register');
 
 const webpack = require('webpack');
-const config = require('./webpack.config');
+const config = require('./webpack.config'); // Get main config
 
 config.cache = true;
 config.debug = true;
@@ -721,23 +743,86 @@ module.exports = config;
 
 ~~~
 
-### Testing
+Let's update the `scripts section` of the `package.json` manually with the data below to add a way to start the server:
+{: .padding-top}
 
-I decided to use the [Tape](https://github.com/substack/tape){:target="_blank"} test module after reading [Why I use Tape Instead of Mocha & So Should You](https://medium.com/javascript-scene/why-i-use-tape-instead-of-mocha-so-should-you-6aa105d8eaf4#.mo56gj6jk){:target="_blank"} by Eric Elliot.
-
-You name my tests `<name>.test.ts` and save the file in the same folder of the file I'm testing.
-
-For example, tests for utils.ts are in utils.test.ts
-
+#### package.json
 ~~~ bash
-|-- src
-  |-- utils.ts
-  |-- utils.test.ts
-|-- server.ts
-|-- server.test.ts
+{
+  "name": "redux-typescript-starter",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "build": "node_modules/.bin/webpack",
+    "dev": "node_modules/.bin/webpack-dev-server --config webpack.config.dev.js",
+    "lint": "npm run lint:js && npm run lint:tsc",
+    "lint:js": "node_modules/.bin/eslint .",
+    "lint:tsc": "node_modules/.bin/tslint src/**/*.ts{,x}",
+    "postinstall": "npm run typings && npm run build",
+    "test": "echo \"no test specified\" && exit 0",
+    "typings": "node_modules/.bin/typings install"
+  },
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "babel-register": "^6.9.0",
+    "eslint": "^3.0.1",
+    "eslint-plugin-react": "^5.2.2",
+    "file-loader": "^0.9.0",
+    "source-map-loader": "^0.1.5",
+    "ts-loader": "^0.8.2",
+    "tslint": "^3.13.0",
+    "typescript": "^1.8.10",
+    "typings": "^1.3.1",
+    "webpack": "^1.13.1",
+    "webpack-dev-server": "^1.14.1"
+  },
+  "dependencies": {
+    "react": "^15.2.1",
+    "react-dom": "^15.2.1"
+  }
+}
 ~~~
 
-#### Hello.tsx
+### Test the setup
+
+Let's delete the `node_modules` `_build' and `typings` folders.
+
+#### Install to recreate
+
+~~~ bash
+$ npm install 
+~~~ 
+
+#### Linting
+
+~~~ bash
+$ npm run lint
+~~~
+
+No errors should appear. 
+
+#### Testing
+
+~~~ bash
+$ npm test
+~~~
+
+This will return `No test specified. npm ERR! Test failed.`.
+
+#### Run Webpack Dev Server
+
+~~~ bash
+$ npm run dev
+~~~
+
+Browse to `http://localhost:8080/` and you should see `This page uses TypeScript and React!`
+
+Open `Hello.tsx` in `src/components` and modify or add some of the text.
+
+Ex:
+{: .padding-top}
 
 ~~~ javascript
 import * as React from 'react';
@@ -749,10 +834,106 @@ export interface HelloProps {
 
 export class Hello extends React.Component<HelloProps, {}> {
   render() {
-    return <h1>This page uses {this.props.compiler} and {this.props.framework}!</h1>;
+    return <h1>UPDATED!! This page uses {this.props.compiler} and {this.props.framework}!</h1>;
   }
 }
 ~~~
+
+Upon saving, you should automatically see the updated text `UPDATED!! This page uses TypeScript and React!` on the browser. You can make more modification to test it more.
+
+You can view a close example of this [here](https://github.com/melxx001/redux-starter/tree/2-webpack-dev-server){:target="_blank"}.
+{: .padding-top}
+
+{: .padding-bottom}
+
+## 3. Adding Testing and Coverage
+
+I have been recently obsessed with testing and 100% coverage. 
+
+I use TDD to minimize bugs. It's a process to learn but you'll be glad you did it and the quality of your work will increase.
+{: .padding-top}
+
+### Testing
+
+I decided to use the [Tape](https://github.com/substack/tape){:target="_blank"} test module after reading [Why I use Tape Instead of Mocha & So Should You](https://medium.com/javascript-scene/why-i-use-tape-instead-of-mocha-so-should-you-6aa105d8eaf4#.mo56gj6jk){:target="_blank"} by [Eric Elliot](https://twitter.com/_ericelliott){:target="_blank"}.
+
+I name my tests `<name>.test.ts` and save the file in the same folder of the file I'm testing.
+
+For example, tests for utils.ts are in utils.test.ts.
+
+~~~ bash
+|-- src
+  |-- utils.ts
+  |-- utils.test.ts
+  |-- Hello.tsx
+  |-- Hello.test.tsx
+|-- server.ts
+|-- server.test.ts
+~~~
+
+Let's install the necessary items to run tests
+
+~~~ bash
+$ npm install --save-dev tape react-addons-test-utils tap-spec
+~~~
+
+Note: Adding the tap-pec package is to make the test results look pretty.
+
+Let's also grab the typescript declaration files for Tape and react-addons-test-utils.
+{: .padding-top}
+
+~~~ bash
+$ node_modules/.bin/typings install tape -D
+$ node_modules/.bin/typings install dt~react-addons-test-utils -SG
+~~~
+
+Let's update the `scripts section` of the `package.json` manually with the data below to add testing:
+{: .padding-top}
+
+#### package.json
+~~~ bash
+{
+  "name": "redux-typescript-starter",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "build": "node_modules/.bin/webpack",
+    "dev": "node_modules/.bin/webpack-dev-server --config webpack.config.dev.js",
+    "lint": "npm run lint:js && npm run lint:tsc",
+    "lint:js": "node_modules/.bin/eslint .",
+    "lint:tsc": "node_modules/.bin/tslint src/**/*.ts{,x}",
+    "postinstall": "npm run typings && npm run build",
+    "test": "node_modules/.bin/ts-node node_modules/.bin/tape ./**/*.test.ts* | tap-spec",
+    "typings": "node_modules/.bin/typings install"
+  },
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "babel-register": "^6.9.0",
+    "eslint": "^3.0.1",
+    "eslint-plugin-react": "^5.2.2",
+    "file-loader": "^0.9.0",
+    "react-addons-test-utils": "^15.3.0",
+    "source-map-loader": "^0.1.5",
+    "tap-spec": "^4.1.1",
+    "tape": "^4.6.0",
+    "ts-loader": "^0.8.2",
+    "tslint": "^3.13.0",
+    "typescript": "^1.8.10",
+    "typings": "^1.3.1",
+    "webpack": "^1.13.1",
+    "webpack-dev-server": "^1.14.1"
+  },
+  "dependencies": {
+    "react": "^15.2.1",
+    "react-dom": "^15.2.1"
+  }
+}
+~~~
+
+Add a test for `Hello.tsx` in the `src/components/` directory called `Hello.test.tsx`
+{: .padding-top}
 
 #### Hello.test.tsx
 
@@ -763,7 +944,7 @@ import { createRenderer } from 'react-addons-test-utils';
 
 import { Hello } from './Hello';
 
-test('test', (t: test.Test) : void => {
+test('Hello Test', (t: test.Test) : void => {
   t.equal(typeof Hello, 'function', 'Check if Hello is a function');
 
   const compiler = 'TypeScript';
@@ -782,14 +963,423 @@ test('test', (t: test.Test) : void => {
 
 ~~~
 
+If you now run `npm test` in a terminal, you will get similar output to :
+{: .padding-top}
+
+~~~ 
+  test
+
+    ✔ Check if Hello is a function
+    ✔ Check is Hello returns correctly
+    ✔ Check Hello returns h1
+
+
+  total:     3
+  passing:   3
+  duration:  2.6s
+~~~
+
+You can view a close example of this [here](https://github.com/melxx001/redux-starter/tree/2-webpack-dev-server){:target="_blank"}.
+{: .padding-top}
+
+{: .padding-bottom}
+
 ### Coverage
 
-I've yet to find a coverage tool that can easily be used with Typescript. Also, I wanted to minimize the amount of packages to use to get coverage. I eventualy decided to continue use [istanbul](https://github.com/gotwarlost/istanbul){:target="_blank"}.
+I've had to look for a while to find a coverage tool that can easily be used with Typescript. I just recently found out that it is now possible to run [Istanbul](https://github.com/gotwarlost/istanbul){:target="_blank"} against TypeScript source code using Istanbul version [1.1.0-alpha.1](https://github.com/gotwarlost/istanbul/tree/v1.1.0-alpha.1){:target="_blank"}.
 
-The twist is that I compile Typescript to ES6 code (check out tsconfig.json above) because compiling to ES5 adds various items which reduces coverage. I then run coverage on the compiled code.
+Let's add a file called `istanbul.yml` in the root directory
 
-Running `npm run coverage` in a terminal will create a `coverage` folder with an `index.html` which will show the coverage data.
+#### istanbul.yml
 
-### other
+~~~ bash
+verbose: false
+instrumentation:
+    default-excludes: true
+reporting:
+    print: summary
+    reports:
+      - lcov
+      - text
+      - html
+    dir: ./coverage
+    watermarks:
+        statements: [50, 80]
+        lines: [50, 80]
+        functions: [50, 80]
+        branches: [50, 80]
+~~~
 
+Let's install the necessary items to run coverage. 
+
+~~~ bash
+$ npm install --save-dev --save-exact istanbul@1.1.0-alpha.1
+~~~
+
+Let's update the `scripts section` of the `package.json` manually with the data below to add coverage:
+{: .padding-top}
+
+#### package.json
+~~~ bash
+{
+  "name": "redux-typescript-starter",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "build": "node_modules/.bin/webpack",
+    "cover": "node_modules/.bin/ts-node node_modules/.bin/istanbul cover -e .ts -e .tsx -x '*.test.ts*' node_modules/.bin/tape ./**/*.test.ts* | tap-spec",
+    "dev": "node_modules/.bin/webpack-dev-server --config webpack.config.dev.js",
+    "lint": "npm run lint:js && npm run lint:tsc",
+    "lint:js": "node_modules/.bin/eslint .",
+    "lint:tsc": "node_modules/.bin/tslint src/**/*.ts{,x}",
+    "postinstall": "npm run typings && npm run build",
+    "test": "node_modules/.bin/ts-node node_modules/.bin/tape ./**/*.test.ts* | tap-spec",
+    "typings": "node_modules/.bin/typings install"
+  },
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "babel-register": "^6.9.0",
+    "eslint": "^3.0.1",
+    "eslint-plugin-react": "^5.2.2",
+    "file-loader": "^0.9.0",
+    "istanbul": "^0.4.4",
+    "react-addons-test-utils": "^15.3.0",
+    "source-map-loader": "^0.1.5",
+    "tap-spec": "^4.1.1",
+    "tape": "^4.6.0",
+    "ts-loader": "^0.8.2",
+    "tslint": "^3.13.0",
+    "typescript": "^1.8.10",
+    "typings": "^1.3.1",
+    "webpack": "^1.13.1",
+    "webpack-dev-server": "^1.14.1"
+  },
+  "dependencies": {
+    "react": "^15.2.1",
+    "react-dom": "^15.2.1"
+  }
+}
+
+~~~
+
+Running `npm run cover` in a terminal will run test and display the coverage information in the terminal as well as create a `coverage` folder with an `index.html` which will show the coverage data in more details on a browser.
+
+The coverage display in the terminal should look similar to:
+
+~~~ html
+  test
+
+    ✔ Check if Hello is a function
+    ✔ Check is Hello returns correctly
+    ✔ Check Hello returns h1
+    -----------|----------|----------|----------|----------|----------------|
+    File       |  % Stmts | % Branch |  % Funcs |  % Lines |Uncovered Lines |
+    -----------|----------|----------|----------|----------|----------------|
+    All files  |      100 |      100 |      100 |      100 |                |
+     Hello.tsx |      100 |      100 |      100 |      100 |                |
+    -----------|----------|----------|----------|----------|----------------|
+    =============================== Coverage summary ===============================
+    Statements   : 100% ( 3/3 )
+    Branches     : 100% ( 0/0 )
+    Functions    : 100% ( 1/1 )
+    Lines        : 100% ( 3/3 )
+    ================================================================================
+
+
+  total:     3
+  passing:   3
+  duration:  9s
+
+~~~
+
+You can view a close example of this [here](https://github.com/melxx001/redux-starter/tree/3-add-testing-coverage){:target="_blank"}.
+{: .padding-top}
+
+{: .padding-bottom}
+
+## 4. Add client-side Routing
+
+Initially let's add a client-side routing. We'll eventually update to server-side routing. Also, we'll be adding Hot Module Replacement which is like live reload for every module.
+
+First let's install [React Router](https://github.com/reactjs/react-router){:target="_blank"} and the typescript declation for it.
+
+~~~ bash
+$ npm install --save react-router
+$ node_modules/.bin/typings install react-router -S
+~~~
+
+Let's update `webpack.config.dev.js`.
+
+#### webpack.config.dev.js
+
+~~~ javascript
+// Used for on-the-fly transpilation. This is only needed in the
+// webpack config file to use ES6
+require('babel-register');
+
+const webpack = require('webpack');
+const config = require('./webpack.config');
+
+const hostname = 'localhost';
+const port = '8080';
+
+config.cache = true;
+config.debug = true;
+config.devtool = 'inline-source-map';
+config.entry.index.unshift(`webpack-dev-server/client?http://${hostname}:${port}/`);
+
+config.plugins = [
+  new webpack.HotModuleReplacementPlugin(), //Hot module replacement
+];
+
+config.devServer = {
+  hot: true,
+  inline: true,
+};
+
+module.exports = config;
+
+~~~
+
+### Create views
+
+Create a directory named `views` in the `src` directory and add a couple views `index.tsx`, `about.tsx` and `404.tsx`.
+
+#### src/views/index.tsx
+
+~~~ javascript
+import * as React from 'react';
+
+export class Home extends React.Component<any, any> {
+  render() {
+    return (
+      <h1>Index</h1>
+    );
+  }
+}
+
+~~~ 
+
+#### src/views/about.tsx
+
+~~~ javascript
+import * as React from 'react';
+
+export class About extends React.Component<any, any> {
+  render() {
+    return (
+      <h1>About</h1>
+    );
+  }
+}
+
+~~~ 
+
+#### src/views/404.tsx
+
+~~~ javascript
+import * as React from 'react';
+
+export function NotFound() {
+  return (
+    <h1>404</h1>
+  );
+};
+
+~~~ 
+
+### Add Layout
+
+Create a directory named `layout` in the `src` directory and add `index.tsx`.
+
+#### src/layout/index.tsx
+
+~~~ javascript
+import * as React from 'react';
+import { Link } from 'react-router';
+
+export function Layout(props: React.Props<any>) {
+  return (
+    <div>
+      <ul>
+        <li>
+          <Link to="/">Home</Link>
+        </li>
+        <li>
+          <Link to="/about">About</Link>
+        </li>
+      </ul>
+      <div>
+        {props.children}
+      </div>
+    </div>
+  );
+};
+
+~~~ 
+
+### Create Routes
+
+Create a directory named `routes` in the `src` directory and add `index.tsx`.
+
+#### Add a unit tests
+
+~~~ bash
+$ npm install --save-dev jsdom jsdom-global
+$ node_modules/.bin/typings install dt~jsdom -DG
+$ node_modules/.bin/typings install dt~jquery -DG
+~~~
+
+Add `index.test.tsx` in the `src/routes` folder to test all the routes.
+
+#### src/routes/index.test.tsx
+
+~~~ javascript
+import * as React from 'react';
+import * as test from 'tape';
+
+import { render } from 'react-dom';
+import { Router, createMemoryHistory } from 'react-router';
+import Routes from '../routes';
+
+require('jsdom-global')(); // Used to make available the DOM element document
+
+const Routing = (
+  <Router history={createMemoryHistory('/')}>
+    {Routes}
+  </Router>
+);
+
+test('Test Routes', (t: test.Test) : void => {
+  let node = document.createElement('div');
+
+  render((Routing), node, () => {
+    t.notEqual(node.textContent.indexOf('Index'), -1, 'Index page found');
+  });
+
+  Routing.props.history.push('/hello');
+  render((Routing), node, () => {
+    t.notEqual(node.textContent.indexOf('This page uses TypeScript and React!'), -1, 'Hello page found');
+  });
+
+  Routing.props.history.push('/about');
+  render((Routing), node, () => {
+    t.notEqual(node.textContent.indexOf('About'), -1, 'About page found');
+  });
+
+  Routing.props.history.push('/doesnotexist');
+  render((Routing), node, () => {
+    t.notEqual(node.textContent.indexOf('404'), -1, '404 page found');
+  });
+
+  t.end();
+});
+
+~~~
+
+Add `index.tsx` in the `src/routes` folder to setup the routes.
+
+#### src/routes/index.tsx
+
+~~~ javascript
+import * as React from 'react';
+import { IndexRoute, Route } from 'react-router';
+import Layout from '../layout';
+import About from '../views/about';
+import Home from '../views';
+import NotFound from '../views/404';
+
+export default (
+  <Route path="/" component={Layout}>
+    <IndexRoute component={Home} />
+
+    <Route path="/about" component={About} />
+
+    <Route path="*" component={NotFound} />
+  </Route>
+);
+
+~~~ 
+
+### Update Entry Point
+
+Update `index.tsx` in the `src` folder with the contents below
+
+#### src/index.tsx
+
+~~~ javascript
+import * as React from 'react';
+import { render } from 'react-dom';
+import { Router, browserHistory } from 'react-router';
+import Routes from './routes';
+
+const component = (
+  <Router history={browserHistory}>
+    {Routes}
+  </Router>
+);
+
+render(component, document.getElementById('example'));
+
+~~~
+
+### Final touchups
+
+Your `package.json` should look like this at this point:
+
+~~~ bash
+ADD PACKAGE.JSON HERE :)
+~~~
+
+Your root directory should look similar to:
+{: .padding-top}
+~~~ bash
+|- _build
+|- coverage
+|- node_modules
+|- src
+  |- components
+    |- Hello.tsx
+  |- layout
+    |- index.tsx
+  |- routes
+    |- index.test.tsx
+    |- index.tsx
+  |- views
+    |- 404.tsx
+    |- about.tsx
+    |- index.tsx
+  |- index.tsx
+|- typings
+|- .editorconfig
+|- .eslintignoreeslintignore
+|- .eslintrc
+|- index.html
+|- package.json
+|- tsconfig.json
+|- tslint.json
+|- typings.json
+|- webpack.config.dev.js
+|- webpack.config.js
+~~~
+
+### Test the Setup
+
+Run `npm run dev` in a terminal and browse to `http://localhost:8080/`. The initial page should should 3 links and `Index`
+
+ - Clicking on any link should not cause a page refresh
+ - Clicking on `About` should display `About`
+ - Clicking on `Hello` should display `This page uses TypeScript and React!`
+ - Clicking on `Home` should display `Index`
+
+We've successfully added `react-router` and have a basic working site. Yay!!
+
+You can view a close example of this [here](https://github.com/melxx001/redux-starter/tree/4-add-routing){:target="_blank"}.
+{: .padding-top}
+
+{: .padding-bottom}
+
+## 5. Add Redux
 
