@@ -590,7 +590,7 @@ export class Hello extends React.Component<HelloProps, {}> {
 
 ~~~
 
-### Final touchups
+### Test the setup
 
 At this point, your root directory should look like:
 {: .padding-top}
@@ -614,7 +614,7 @@ At this point, your root directory should look like:
 
 If you selected the default entries when initializing you project with `npm init`, your `package.json` should look something like:
 {: .padding-top}
-~~~ json
+~~~ bash
 {
   "name": "redux-typescript-starter",
   "version": "1.0.0",
@@ -684,8 +684,6 @@ Let's update the `scripts` section manually and add a few extra items:
 }
 
 ~~~
-
-### Test the setup
 
 Let's delete the `node_modules` and `typings` folders.
 
@@ -1325,13 +1323,13 @@ render(component, document.getElementById('example'));
 
 ~~~
 
-### Final touchups
+### Test the setup
 
 Your `package.json` should look like this at this point:
 
 #### package.json
 
-~~~ json
+~~~ bash
 {
   "name": "redux-typescript-starter",
   "version": "1.0.0",
@@ -1413,8 +1411,6 @@ Your root directory should look similar to:
 |- webpack.config.js
 ~~~
 
-### Test the Setup
-
 Run `npm run dev` in a terminal and browse to `http://localhost:8080/`. The initial page should should 3 links and `Index`
 
  - Clicking on any link should not cause a page refresh
@@ -1424,9 +1420,8 @@ Run `npm run dev` in a terminal and browse to `http://localhost:8080/`. The init
 
 We've successfully added `react-router` and have a basic working site. Yay!!
 
-### Run Unit Tests
-
 Run `npm test` in a terminal. The result should look like:
+{: .padding-top}
 
 ~~~ bash
 
@@ -1452,10 +1447,8 @@ Run `npm test` in a terminal. The result should look like:
 
 ~~~
 
-
-### Run Coverage
-
 Run `npm run cover` in a terminal. The result should look like:
+{: .padding-top}
 
 ~~~ bash
 
@@ -1509,7 +1502,7 @@ Things you should never do inside a reducer:
   - Perform side effects like API calls and routing transitions;
   - Call non-pure functions, e.g. Date.now() or Math.random(). 
 
-Let's install [redux](http://redux.js.org/){:target="_blank"}, [react-router-redux](https://github.com/reactjs/react-router-redux){:target="_blank"}, [redux-thunk](https://github.com/gaearon/redux-thunk){:target="_blank"} and the necessary Typescript declarations.
+Let's install [redux](http://redux.js.org/){:target="_blank"}, [react-redux](https://github.com/reactjs/react-redux){:target="_blank"}, [react-router-redux](https://github.com/reactjs/react-router-redux){:target="_blank"}, [redux-thunk](https://github.com/gaearon/redux-thunk){:target="_blank"}, [history](https://github.com/mjackson/history/tree/v2.1.2){:target="_blank"} and the necessary Typescript declarations.
 
 ~~~ bash
 $ npm install --save redux react-redux react-router-redux redux-thunk
@@ -1521,7 +1514,7 @@ $ node_modules/.bin/typings install dt~react-router/history -SG
 $ node_modules/.bin/typings install dt~es6-shim -SG
 ~~~
 
-I had to use the `v2` version of the `history` package due to compatiblity issues. The version 3.0.0 (May 30 2016) doesn’t work at all with React Router.
+I had to use version 2.1.2 of the `history` package due to compatiblity issues. Version 3.0.0 (May 30 2016) doesn’t work at all with React Router.
 
 ### Add Actions
 
@@ -1671,11 +1664,6 @@ test('Counter Tests', (t: test.Test) : void => {
 
 ~~~
 
-> Note: In the code below, I use `CounterComponent` for the component that will display the counter and the buttons.
-You'll notice also that `this.props.counter` is used instead of it being `this.state.counter`. 
-The exported `Counter` that will be used to display the counter will work automatically thanks to the `const Counter = connect(mapStateToProps, mapDispatchToProps)(CounterComponent as any);` lines below.
-
-
 #### src/components/Counter.tsx
 
 ~~~ javascript
@@ -1741,13 +1729,17 @@ export {
 
 ~~~
 
+> Note: In the code above, I use `CounterComponent` for the component that will display the counter and the buttons.
+You'll notice also that `this.props.counter` is used instead of it being `this.state.counter`. 
+The exported `Counter` that will be used to display the counter will work automatically thanks to the `const Counter = connect(mapStateToProps, mapDispatchToProps)(CounterComponent as any);` lines below.
+
 ### Add Root Reducer
 
 All the reducers in your app can be combined into a single reducer called a root reducer.
 
-Add a file called `reducer.ts` in the `src` directory.
+Add a file called `rootReducer.ts` in the `src` directory.
 
-#### src/reducer.ts
+#### src/rootReducer.ts
 
 ~~~ javascript
 import {combineReducers} from 'redux';
@@ -1802,17 +1794,17 @@ test('Test Store', (t: test.Test) : void => {
 ~~~ javascript
 const thunk = require('redux-thunk').default;
 import {applyMiddleware, createStore} from 'redux';
-import reducer from './reducer';
+import rootReducer from './rootReducer';
 
 const createStoreWithMiddleware = applyMiddleware(thunk)(createStore);
 declare const module: { hot: any };
 
-export default function configureStore(initialState: any = { counterReducer: 0 }, mod: any = module) {
-  const store = createStoreWithMiddleware(reducer, initialState);
+export default function configureStore(initialState: any = { counterReducer: 0 }, mod: any = module) : any {
+  const store: any = createStoreWithMiddleware(rootReducer, initialState);
 
   if (mod.hot && typeof mod.hot.accept === 'function') {
     mod.hot.accept('./reducer', () => {
-      const nextReducer = reducer;
+      const nextReducer = rootReducer;
       store.replaceReducer(nextReducer);
     });
   }
@@ -1822,9 +1814,30 @@ export default function configureStore(initialState: any = { counterReducer: 0 }
 
 ~~~
 
-### Update src/index.tsx
+### Update View
 
-Update `index.tsx' in the `src` directory to use the counter.
+Update `index.tsx` in the `src/views` folder to use the counter
+
+~~~ javascript
+import * as React from 'react';
+import {Counter} from '../components/Counter';
+
+export class Home extends React.Component<any, any> {
+  render() {
+    return (
+      <div>
+        <h1>Index</h1>
+        <Counter />
+      </div>
+    );
+  }
+}
+
+~~~
+
+### Update Entry Point
+
+Update `index.tsx` in the `src` directory to use the counter.
 
 #### src/index.tsx
 
@@ -1836,9 +1849,7 @@ import {Router, useRouterHistory} from 'react-router';
 import {createHashHistory} from 'history';
 import {syncHistoryWithStore} from 'react-router-redux';
 
-
 import configureStore from './store';
-
 import Routes from './routes';
 
 const store = configureStore();
@@ -1860,12 +1871,114 @@ render(Component, document.getElementById('example'));
 
 ~~~
 
-### Final touchups
+### Update Route test
+
+Update `index.test.tsx` in the `src/routes` directory to fix the test.
+
+#### src/routes/index.tsx
+
+~~~ javascript
+import * as React from 'react';
+import * as test from 'tape';
+import {Provider} from 'react-redux';
+import { render } from 'react-dom';
+import { Router, createMemoryHistory } from 'react-router';
+import Routes from '../routes';
+import configureStore from '../store';
+
+require('jsdom-global')(); // Used to make available the DOM element document
+
+const store = configureStore();
+
+const Routing = (
+  <Provider store={store} key="provider">
+    <Router history={createMemoryHistory('/')}>
+      {Routes}
+    </Router>
+  </Provider>
+);
+
+test('Test Routes', (t: test.Test) : void => {
+  let node = document.createElement('div');
+
+  render(Routing, node, () => {
+    t.notEqual(node.textContent.indexOf('Index'), -1, 'Index page found');
+  });
+
+  Routing.props.children.props.history.push('/hello');
+  render(Routing, node, () => {
+    t.notEqual(node.textContent.indexOf('This page uses TypeScript and React!'), -1, 'Hello page found');
+  });
+
+  Routing.props.children.props.history.push('/about');
+  render(Routing, node, () => {
+    t.notEqual(node.textContent.indexOf('About'), -1, 'About page found');
+  });
+
+  Routing.props.children.props.history.push('/doesnotexist');
+  render(Routing, node, () => {
+    t.notEqual(node.textContent.indexOf('404'), -1, '404 page found');
+  });
+
+  t.end();
+});
+
+~~~
+
+### Test the setup
 
 Your `package.json` should look like this at this point:
 
-~~~ json
-ADD PACKAGE.JSON
+~~~ bash
+{
+  "name": "redux-typescript-starter",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "build": "node_modules/.bin/webpack",
+    "cover": "node_modules/.bin/ts-node node_modules/.bin/istanbul cover -e .ts -e .tsx -x '*.test.ts{,x}' node_modules/.bin/tape './**/*.test.ts{,x}' | node_modules/.bin/tap-spec",
+    "dev": "node_modules/.bin/webpack-dev-server --config webpack.config.dev.js",
+    "lint": "npm run lint:js && npm run lint:tsc",
+    "lint:js": "node_modules/.bin/eslint .",
+    "lint:tsc": "node_modules/.bin/tslint 'src/**/*.ts{,x}'",
+    "postinstall": "npm run typings && npm run build",
+    "test": "node_modules/.bin/ts-node node_modules/.bin/tape './**/*.test.ts{,x}' | node_modules/.bin/tap-spec",
+    "typings": "node_modules/.bin/typings install"
+  },
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "babel-register": "^6.11.6",
+    "eslint": "^3.3.0",
+    "eslint-plugin-react": "^6.0.0",
+    "file-loader": "^0.9.0",
+    "istanbul": "1.1.0-alpha.1",
+    "jsdom": "^9.4.2",
+    "jsdom-global": "^2.0.0",
+    "react-addons-test-utils": "^15.3.0",
+    "source-map-loader": "^0.1.5",
+    "tap-spec": "^4.1.1",
+    "tape": "^4.6.0",
+    "ts-loader": "^0.8.2",
+    "tslint": "^3.14.0",
+    "typescript": "^1.8.10",
+    "typings": "^1.3.2",
+    "webpack": "^1.13.1",
+    "webpack-dev-server": "^1.14.1"
+  },
+  "dependencies": {
+    "history": "2.1.2",
+    "react": "^15.3.0",
+    "react-dom": "^15.3.0",
+    "react-redux": "^4.4.5",
+    "react-router": "^2.6.1",
+    "react-router-redux": "^4.0.5",
+    "redux": "^3.5.2",
+    "redux-thunk": "^2.1.0"
+  }
+}
+
 ~~~
 
 Your root directory should look similar to:
@@ -1897,7 +2010,7 @@ Your root directory should look similar to:
     |- about.tsx
     |- index.tsx
   |- index.tsx
-  |- reducer.ts
+  |- rootReducer.ts
   |- store.test.ts
   |- store.ts
 |- typings
@@ -1914,9 +2027,7 @@ Your root directory should look similar to:
 |- webpack.config.js
 ~~~
 
-### Test the Setup
-
-Run `npm run dev` in a terminal and browse to `http://localhost:8080/`. The initial page should should 3 links, the word `Index`, `Counter: 0` and 2 buttons `Increment` and `Decrement`.
+Run `npm run dev` in a terminal and browse to `http://localhost:8080/`. The initial page should should 3 links (Home, About, Hello), `Index`, `Counter: 0` and 2 buttons `Increment` and `Decrement`.
 
  - Clicking on Increment will increase the counter
  - Clicking on Decrement will decrease the counter
@@ -1925,23 +2036,128 @@ Run `npm run dev` in a terminal and browse to `http://localhost:8080/`. The init
  - Clicking on `Hello` should display `This page uses TypeScript and React!`
  - Clicking on `Home` should display `Index` and the counter in the same state as when you left it
 
-We've successfully added `react-router` and have a basic working site. Yay!!
-
-### Run Unit Tests
+We've successfully added `Redux`.
 
 Run `npm test` in a terminal. The result should look like:
+{: .padding-top}
 
 ~~~ bash
-GET RESULTS
+
+
+  Counter Actions Test
+
+    ✔ Test increment action
+    ✔ Test decrement action
+
+  Counter Presentation Tests
+
+    ✔ Check Counter props
+    ✔ Check Counter returns div
+
+  Counter Tests
+
+    ✔ Check getActions method
+    ✔ Check mapStateToProps method
+    ✔ Check mapDispatchToProps method
+
+  Hello Test
+
+    ✔ Check if Hello is a function
+    ✔ Check is Hello returns correctly
+    ✔ Check Hello returns div
+
+  Reducers Test
+
+    ✔ Test increment
+    ✔ Test decrement
+    ✔ Test null state
+    ✔ Test undefined state
+    ✔ Test unknown action type
+    ✔ Test missing action type
+
+  Test Routes
+
+    ✔ Index page found
+    ✔ Hello page found
+    ✔ About page found
+    ✔ 404 page found
+
+  Test Store
+
+    ✔ Check default store data
+    ✔ Check store data
+    ✔ Check hot module replacement
+
+
+  total:     23
+  passing:   23
+  duration:  6.8s
+
+
 ~~~
 
-
-### Run Coverage
-
 Run `npm run cover` in a terminal. The result should look like:
+{: .padding-top}
 
 ~~~ bash
-GET RESULTS
+
+
+  Counter Actions Test
+
+    ✔ Test increment action
+    ✔ Test decrement action
+
+  Counter Presentation Tests
+
+    ✔ Check Counter props
+    ✔ Check Counter returns div
+
+  Counter Tests
+
+    ✔ Check getActions method
+    ✔ Check mapStateToProps method
+    ✔ Check mapDispatchToProps method
+
+  Hello Test
+
+    ✔ Check if Hello is a function
+    ✔ Check is Hello returns correctly
+    ✔ Check Hello returns div
+
+  Reducers Test
+
+    ✔ Test increment
+    ✔ Test decrement
+    ✔ Test null state
+    ✔ Test undefined state
+    ✔ Test unknown action type
+    ✔ Test missing action type
+
+  Test Routes
+
+    ✔ Index page found
+    ✔ Hello page found
+    ✔ About page found
+    ✔ 404 page found
+
+  Test Store
+
+    ✔ Check default store data
+    ✔ Check store data
+    ✔ Check hot module replacement
+    =============================== Coverage summary ===============================
+    Statements   : 100% ( 94/94 )
+    Branches     : 100% ( 15/15 )
+    Functions    : 100% ( 21/21 )
+    Lines        : 100% ( 80/80 )
+    ================================================================================
+
+
+  total:     23
+  passing:   23
+  duration:  12.5s
+
+
 ~~~
 
 You can view a similar example of this [here](https://github.com/melxx001/redux-starter/tree/5-add-redux){:target="_blank"}.
