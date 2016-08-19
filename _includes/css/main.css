@@ -541,3 +541,10 @@ footer .footer-below {
     color: #0F8870;
     font-weight: bold;
 }
+
+.copy-button {
+    font-weight: bold;
+    float: right; 
+    background: white;  
+    color: black;
+}

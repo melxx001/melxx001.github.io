@@ -14,3 +14,4 @@ layout: null
 {% include_relative /js/prism.min.js %}
 
 {% include_relative /js/freelancer.min.js %}
+{% include_relative /js/custom.js %}
